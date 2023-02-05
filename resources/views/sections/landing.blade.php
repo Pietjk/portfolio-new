@@ -1,11 +1,11 @@
-<section class="h-screen bg-gradient-to-b from-blue-600 to-orange-400" id="landing">
-    <div class="container mx-auto">
-        <header class="text-white text-center p-4 items-center">
+<section class="min-h-screen bg-gradient-to-b from-blue-600 to-orange-400 z-10" id="landing">
+    <div class="container mx-auto text-white">
+        <header class="text-center p-4">
             <h1 class="lg:text-[9.1rem] md:text-[6rem] sm:text-[5rem] text-[3.9rem]">Piet Korfmaker</h1>
             <h2 class="md:text-5xl text-4xl">Front end developer</h2>
         </header>
 
-        <div class="text-white mx-auto pt-5 md:w-[444px] w-[333px]">
+        <div class="mx-auto pt-5 md:w-[444px] w-[333px]">
             <h3 class="text-2xl">Welkom op mijn Portfolio!</h3>
             <p>
                 Ik ben een web applicatie ontwikkelaar, werkzaam bij
@@ -25,7 +25,6 @@
                 of mijn
                 <u><a href="https://www.linkedin.com/in/piet-korfmaker-404936232/">Linkedin</a></u>.
             </p>
-
         </div>
     </div>
 
@@ -35,6 +34,12 @@
      document.getElementById('sun').addEventListener('click', sunExplodes);
 
     function sunExplodes() {
-        document.getElementById('sun').classList.add('explode');
+        let sun = document.getElementById('sun')
+        sun.classList.toggle('explode');
+
+        setTimeout(function () {
+            sun.classList.toggle('explode')
+            window.location.href = '#experiences'
+        }, 1500);
     }
 </script>
