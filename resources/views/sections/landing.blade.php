@@ -5,7 +5,7 @@
             <h2 class="md:text-5xl text-4xl overflow-visible">Front end developer</h2>
         </header>
 
-        <div class="mx-auto p-4 md:w-[444px] w-[333px] bg-purple-600/40 backdrop-blur-md rounded-md relative z-10" id="main-text-box">
+        <div class="mx-auto p-4 md:w-[444px] w-[333px] bg-purple-800/40 backdrop-blur-md rounded-md relative z-10" id="main-text-box">
             <h3 class="text-2xl">Welkom op mijn Portfolio!</h3>
             <p>
                 Ik ben een web applicatie ontwikkelaar, werkzaam bij
