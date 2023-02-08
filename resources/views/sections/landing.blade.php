@@ -1,11 +1,13 @@
 <section class="min-h-screen bg-gradient-to-b from-purple-600 via-orange-400 to-yellow-400" id="landing">
-    <div class="container mx-auto text-white min-h-full">
-        <header class="text-center p-4 relative z-10" id="landing-heading">
-            <h1 class="lg:text-[9.1rem] md:text-[6rem] sm:text-[5rem] text-[3.9rem]">Piet Korfmaker</h1>
+    <div class="container mx-auto text-black min-h-full">
+        <header class="text-center p-4 relative z-10 overflow-visible" id="landing-heading">
+            {{-- lg:text-[6.7rem] md:text-[4.9rem] sm:text-[4.1rem] text-[2.5rem] --}}
+
+            <h1 class="lg:text-[9.1rem] md:text-[6rem] sm:text-[5rem] text-[3.9rem] overflow-visible">Piet Korfmaker</h1>
             <h2 class="md:text-5xl text-4xl overflow-visible">Front end developer</h2>
         </header>
 
-        <div class="mx-auto p-4 md:w-[444px] w-[333px] bg-purple-800/40 backdrop-blur-md rounded-md relative z-10" id="main-text-box">
+        <div class="mx-auto pt-4 md:w-[444px] w-[333px]  relative z-10" id="main-text-box">
             <h3 class="text-2xl">Welkom op mijn Portfolio!</h3>
             <p>
                 Ik ben een web applicatie ontwikkelaar, werkzaam bij

@@ -1,12 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url(https://fonts.bunny.net/css?family=albert-sans:400);
+@import url(https://fonts.bunny.net/css?family=albert-sans:400|kodchasan:600);
 
 html,* {
     font-family: 'Albert Sans';
     overflow-x: hidden;
 }
+
+/* header > h1,h2 {
+    font-family: 'Kodchasan';
+} */
 
 
 .sun {
