@@ -2,5 +2,5 @@
 
 @section('content')
     @include('sections.landing')
-    @include('sections.experiences')
+    @include('sections.projects')
 @endsection
