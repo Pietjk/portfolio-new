@@ -14,17 +14,49 @@
             </div>
         </div>
     </div>
-    <img class="pt-5 car" src="{{asset('images/car.png')}}" alt="" id="car">
+    <img class="pt-10 car" src="{{asset('images/car.png')}}" alt="" id="car">
     <div class="w-100 h-5 bg-[#E00496] box-shadow-intense-pink"></div>
 </section>
 
 <script>
-    window.addEventListener("scroll", isHidden);
-function moveCar() {
-    const position = document.getElementById('car').getBoundingClientRect();
+    let scrollPos = 0;
+    let scrollingUp = false
 
-    if(position.top >= 0 && position.bottom <= window.innerHeight) {
-        console.log('car!');
+    window.addEventListener('scroll', function(){
+        if ((document.body.getBoundingClientRect()).top > scrollPos) {
+            scrollingUp = true;
+        } else {
+            scrollingUp = false;
+        }
+        scrollPos = (document.body.getBoundingClientRect()).top;
+    });
+
+    window.addEventListener("scroll", moveCar);
+
+    function moveCar() {
+        let car = document.getElementById('car');
+        const position = car.getBoundingClientRect();
+
+        if(position.top >= 0 && position.bottom <= window.innerHeight) {
+            let style = window.getComputedStyle(car);
+            let matrix = new WebKitCSSMatrix(style.transform);
+            let position = matrix.m41;
+            let destination = window.innerWidth
+            let defaultPosition = -894
+            let distance = destination - defaultPosition;
+            let steps = distance / 78;
+
+            if (scrollingUp) {
+                if (position >= defaultPosition) {
+                    car.style.transform = "translateX("+ (position - steps) +"px)";
+                }
+            } else {
+                if (position <= destination) {
+                    car.style.transform = "translateX("+ (position + steps) +"px)";
+                }
+
+            }
+
+        }
     }
-}
 </script>

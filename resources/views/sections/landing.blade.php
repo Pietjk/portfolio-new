@@ -18,7 +18,7 @@
         sun.classList.toggle('z-20');
 
         setTimeout(function () {
-            window.location.href = '#experiences'
+            window.location.href = '#projects'
         }, 1000);
         setTimeout(function () {
             sun.classList.toggle('explode')

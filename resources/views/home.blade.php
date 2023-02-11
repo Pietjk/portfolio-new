@@ -5,5 +5,6 @@
         @include('sections.landing')
         @include('sections.projects')
         @include('sections.small_projects')
+        @include('sections.about')
     </main>
 @endsection
