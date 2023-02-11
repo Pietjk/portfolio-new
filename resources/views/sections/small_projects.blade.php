@@ -23,10 +23,9 @@
     let scrollingUp = false
 
     window.addEventListener('scroll', function(){
+    		scrollingUp = false;
         if ((document.body.getBoundingClientRect()).top > scrollPos) {
             scrollingUp = true;
-        } else {
-            scrollingUp = false;
         }
         scrollPos = (document.body.getBoundingClientRect()).top;
     });
@@ -40,23 +39,17 @@
         if(position.top >= 0 && position.bottom <= window.innerHeight) {
             let style = window.getComputedStyle(car);
             let matrix = new WebKitCSSMatrix(style.transform);
-            let position = matrix.m41;
+            let position = matrix.e;
             let destination = window.innerWidth
             let defaultPosition = -894
             let distance = destination - defaultPosition;
             let steps = distance / 78;
 
-            if (scrollingUp) {
-                if (position >= defaultPosition) {
+            if (scrollingUp && position >= defaultPosition) {
                     car.style.transform = "translateX("+ (position - steps) +"px)";
-                }
-            } else {
-                if (position <= destination) {
+            } else if (position <= destination) {
                     car.style.transform = "translateX("+ (position + steps) +"px)";
-                }
-
             }
-
         }
     }
 </script>
