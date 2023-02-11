@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('sections.landing')
-    @include('sections.projects')
+    <main>
+        @include('sections.landing')
+        @include('sections.projects')
+        @include('sections.small_projects')
+    </main>
 @endsection
