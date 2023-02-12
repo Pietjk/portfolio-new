@@ -1,8 +1,8 @@
 <section id="about">
     @include('components._header', [$text = 'Over Mij'])
     <div class="container mx-auto text-white max-w-[1024px] px-10">
-        <div class="grid grid-cols-4 gap-x-5">
-            <div class="col-span-3">
+        <div class="grid md:grid-cols-3 gap-x-5 items-center">
+            <div class="col-span-2 md:order-1 order-2">
                 <h2 class="text-[#09aac0] text-shadow-blue text-2xl">Piet Korfmaker</h2>
                 <p>Hallo, ik ben Piet Korfmaker. Een web developer bij Posis IT Group. Ik houd mij bezig met het schrijven code die zowel in de back- als de frontend draait.</p>
                 <p>De talen en frameworks waar ik het meeste mee doe zijn:</p>
@@ -13,7 +13,9 @@
                 </ul>
                 <p>Naast deze talen ben ik ook geïnteresseerd in <code>python</code> en <code>C#</code>. Met de Python heb ik al een aantal keine apps gemaakt. Met C# heb ik wat gamedevelopment geprobeerd.</p>
             </div>
-            <img class="px-5" src="{{ asset('images/piet.png') }}" alt="Piet Korfmaker">
+            <div class="px-3 pb-5 mb:p-5 md:order-2 order-1">
+                <img class="image border-4 rounded-xl border-[#09aac0] box-shadow-blue" src="{{ asset('images/piet.jpg') }}" alt="Piet Korfmaker">
+            </div>
         </div>
         <h2 class="text-[#09aac0] text-shadow-blue text-2xl">ROC de Friese Poort</h2>
         <h3 class="text-[#E00496] text-shadow-pink text-xl">MBO Applicatie- en Media Ontwikkeling</h3>
