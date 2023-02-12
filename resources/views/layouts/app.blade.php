@@ -15,7 +15,7 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
-            <main>
+            <main class="min-h-[100vh]">
                 @yield('content')
             </main>
         </div>
