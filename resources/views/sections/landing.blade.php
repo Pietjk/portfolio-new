@@ -9,20 +9,22 @@
         @endfor
     </div>
 </section>
-<script>
-     document.getElementById('sun').addEventListener('click', sunExplodes);
+@push('scripts')
+    <script>
+        document.getElementById('sun').addEventListener('click', sunExplodes);
 
-    function sunExplodes() {
-        let sun = document.getElementById('sun')
-        sun.classList.toggle('explode');
-        sun.classList.toggle('z-20');
-
-        setTimeout(function () {
-            window.location.href = '#projects'
-        }, 1000);
-        setTimeout(function () {
-            sun.classList.toggle('explode')
+        function sunExplodes() {
+            let sun = document.getElementById('sun')
+            sun.classList.toggle('explode');
             sun.classList.toggle('z-20');
-        }, 3000);
-    }
-</script>
+
+            setTimeout(function () {
+                window.location.href = '#projects'
+            }, 1000);
+            setTimeout(function () {
+                sun.classList.toggle('explode')
+                sun.classList.toggle('z-20');
+            }, 3000);
+        }
+    </script>
+@endpush
