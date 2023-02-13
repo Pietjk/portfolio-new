@@ -9,6 +9,10 @@ class Project extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'is_small' => 'boolean'
+    ];
+
     protected $fillable = [
         'title',
         'text',

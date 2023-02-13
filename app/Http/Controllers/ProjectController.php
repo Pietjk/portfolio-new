@@ -8,23 +8,14 @@ use Illuminate\Http\Request;
 class ProjectController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $is_small = $request->is_small;
+        return view('projects.create', compact('is_small'));
     }
 
     /**
@@ -35,7 +26,27 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => ['required', 'string', 'min:3'],
+            'text' => ['required', 'string', 'min:3'],
+            'site' => ['required', 'url'],
+            'github' => ['nullable', 'url'],
+            'image_path' => ['required', 'image', 'max:3000'],
+            'is_small' => ['required', 'boolean']
+        ]);
+
+        unset($validated['image_path']);
+
+        $path = $request->file('image_path')->store(
+            'images',
+            'public'
+        );
+
+        $validated['image_path'] = 'storage/'.$path;
+
+        Project::create($validated);
+
+        return redirect('dashboard');
     }
 
     /**

@@ -22,17 +22,17 @@
     let scrollPos = 0;
     let scrollingUp = false
 
-    window.addEventListener('scroll', function(){
-    		scrollingUp = false;
+    // window.addEventListener('scroll', function(){
+    // });
+    
+    window.addEventListener("scroll", moveCar);
+    
+    function moveCar() {
+        scrollingUp = false;
         if ((document.body.getBoundingClientRect()).top > scrollPos) {
             scrollingUp = true;
         }
         scrollPos = (document.body.getBoundingClientRect()).top;
-    });
-
-    window.addEventListener("scroll", moveCar);
-
-    function moveCar() {
         let car = document.getElementById('car');
         const position = car.getBoundingClientRect();
 
