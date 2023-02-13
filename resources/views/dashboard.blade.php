@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('components._header', [$text = 'Dashboard'])
+    <a href="{{ route('home') }}">@include('components._header', [$text = 'Dashboard'])</a>
     <div class="container mx-auto text-white max-w-[1024px] px-10 min-h-screen p-5">
         <div class="mx-auto p-5 rounded-xl bg-[#170129] w-full mb-10 shadow-lg">
             <h2 class="text-3xl text-[#E00496] text-shadow-pink pb-5 text-center">Project Groot <a class="float-right" href="{{ route('project.create', ['is_small' => 0]) }}"><i class="fa-solid fa-plus"></i></a></h2>
@@ -21,15 +21,27 @@
                             <tr class="border-b">
                                 <td class="px-3">{{ $project->title }}</td>
                                 <td class="px-3">{{ Str::limit($project->text) }}</td>
-                                <td class="px-3"><a href="{{ $project->site }}"> site</a></td>
-                                <td class="px-3"><a href="{{ $project->github }}"> github</a></td>
                                 <td class="px-3">
-                                    <a class="inline-block" href="{{ $project->github }}">
+                                    @if (isset($project->site))
+                                        <a href="{{ $project->site }}"> site</a>
+                                    @endif
+                                </td>
+                                <td class="px-3">
+                                    @if (isset($project->github))
+                                        <a href="{{ $project->github }}"> github</a>
+                                    @endif
+                                </td>
+                                <td class="px-3">
+                                    <a class="inline-block" href="{{ route('project.edit', [$project->getKey()]) }}">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
-                                    <a class="inline-block" href="{{ $project->github }}">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </a>
+                                    <form action="{{ route('project.destroy', [$project->getKey()]) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="inline-block" href="">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
@@ -56,15 +68,27 @@
                             <tr class="border-b">
                                 <td class="px-3">{{ $project->title }}</td>
                                 <td class="px-3">{{ Str::limit($project->text) }}</td>
-                                <td class="px-3"><a href="{{ $project->site }}"> site</a></td>
-                                <td class="px-3"><a href="{{ $project->github }}"> github</a></td>
                                 <td class="px-3">
-                                    <a class="inline-block" href="{{ $project->github }}">
+                                    @if (isset($project->site))
+                                        <a href="{{ $project->site }}"> site</a>
+                                    @endif
+                                </td>
+                                <td class="px-3">
+                                    @if (isset($project->github))
+                                        <a href="{{ $project->github }}"> github</a>
+                                    @endif
+                                </td>
+                                <td class="px-3">
+                                    <a class="inline-block" href="{{ route('project.edit', [$project->getKey()]) }}">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
-                                    <a class="inline-block" href="{{ $project->github }}">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </a>
+                                    <form action="{{ route('project.destroy', [$project->getKey()]) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="inline-block" href="">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

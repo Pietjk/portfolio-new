@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -29,7 +30,7 @@ class ProjectController extends Controller
         $validated = $request->validate([
             'title' => ['required', 'string', 'min:3'],
             'text' => ['required', 'string', 'min:3'],
-            'site' => ['required', 'url'],
+            'site' => ['nullable', 'url'],
             'github' => ['nullable', 'url'],
             'image_path' => ['required', 'image', 'max:3000'],
             'is_small' => ['required', 'boolean']
@@ -50,17 +51,6 @@ class ProjectController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Project  $project
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Project $project)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Project  $project
@@ -68,7 +58,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view('projects.edit', compact('project'));
     }
 
     /**
@@ -80,7 +70,33 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        $validated = $request->validate([
+            'title' => ['required', 'string', 'min:3'],
+            'text' => ['required', 'string', 'min:3'],
+            'site' => ['nullable', 'url'],
+            'github' => ['nullable', 'url'],
+            'image_path' => ['nullable', 'image', 'max:3000'],
+            'is_small' => ['nullable', 'boolean']
+        ]);
+
+        unset($validated['image_path']);
+
+        if ($request->file('image_path') !== null)
+        {
+            $image_path = str_replace('storage/', '', $project->image_path);
+            Storage::disk('public')->delete($image_path);
+
+            $path = $request->file('image_path')->store(
+                'images',
+                'public'
+            );
+
+            $validated['image_path'] = 'storage/'.$path;
+        }
+
+        $project->update($validated);
+
+        return redirect('dashboard');
     }
 
     /**
@@ -91,6 +107,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $image = str_replace('storage/', '', $project->image_path);
+        Storage::disk('public')->delete($image);
+        $project->delete();
+        return back();
     }
 }

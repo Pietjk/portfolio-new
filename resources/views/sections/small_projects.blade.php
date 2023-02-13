@@ -2,16 +2,10 @@
     <div class="container mx-auto text-white max-w-[1024px]">
         @include('components._header', [$text = 'Kleine Projecten'])
         <div class="grid md:grid-cols-2 grid-cols-1 gap-x-5 px-10">
-            <div class="p-3">
-                <img class="image border-4 rounded-xl border-[#09aac0] box-shadow-blue" src="{{asset('images/landings/randomfilename.png')}}" alt="De Ruben Korfmaker landing pagina">
-                <h2 class="text-xl text-[#E00496] text-shadow-pink pt-3">Bestand hernoemer</h2>
-                <p>Met dit programma kan de gebruiker alle bestanden in een gegeven map veranderen naar een random gegenereerde naam.</p>
-            </div>
-            <div class="p-3">
-                <img class="image border-4 rounded-xl border-[#09aac0] box-shadow-blue" src="{{asset('images/landings/imageresizer.png')}}" alt="De Ruben Korfmaker landing pagina">
-                <h2 class="text-xl text-[#E00496] text-shadow-pink pt-3">Foto verkleiner</h2>
-                <p>Met dit programma kan de gebruiker alle afbeeldingen in een gegeven map verkleinen.</p>
-            </div>
+            @foreach ($projects_sm as $project)
+                @includeIf('components._project_small', [$project])
+            @endforeach
+
         </div>
     </div>
     <img class="pt-10 car" src="{{asset('images/car.png')}}" alt="" id="car">
@@ -22,11 +16,8 @@
     let scrollPos = 0;
     let scrollingUp = false
 
-    // window.addEventListener('scroll', function(){
-    // });
-    
     window.addEventListener("scroll", moveCar);
-    
+
     function moveCar() {
         scrollingUp = false;
         if ((document.body.getBoundingClientRect()).top > scrollPos) {

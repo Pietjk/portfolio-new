@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<a href="{{ route('dashboard') }}">@include('components._header', [$text = 'Create'])</a>
     <div class="container mx-auto text-white max-w-[1024px] px-10 min-h-screen p-5">
         <div class="mx-auto p-5 rounded-xl bg-[#170129] w-full mb-10 shadow-lg">
             <h2 class="text-3xl text-[#E00496] text-shadow-pink pb-5 text-center">Maak een nieuw project</h2>
