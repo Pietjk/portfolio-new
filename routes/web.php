@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutTextController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
@@ -31,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('project', ProjectController::class)->except('index', 'show');
+    Route::resource('about', AboutTextController::class)->except('index', 'show');
 });
 
 require __DIR__.'/auth.php';
