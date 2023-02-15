@@ -1,7 +1,7 @@
 <section id="about">
     @include('components._header', [$text = 'Over Mij'])
     <div class="container mx-auto text-white max-w-[1024px] px-10">
-        <div class="grid md:grid-cols-3 gap-x-5 items-center mb-5">
+        {{-- <div class="grid md:grid-cols-3 gap-x-5 items-center mb-5">
             <div class="col-span-2 md:order-1 order-2">
                 <h2 class="text-[#09aac0] text-shadow-blue text-2xl">Piet Korfmaker</h2>
                 <p>Hallo, ik ben Piet Korfmaker. Een web developer bij Posis IT Group. Ik houd mij bezig met het schrijven code die zowel in de back- als de frontend draait.</p>
@@ -16,8 +16,18 @@
             <div class="px-3 pb-5 mb:p-5 md:order-2 order-1">
                 <img class="image border-4 rounded-xl border-[#09aac0] box-shadow-blue" src="{{ asset('images/piet.jpg') }}" alt="Piet Korfmaker">
             </div>
+        </div> --}}
+        <div class="grid md:grid-cols-3 gap-x-5 items-center mb-5">
+            <div class="col-span-2 md:order-1 order-2">
+                <h2 class="text-[#09aac0] text-shadow-blue text-2xl">{{ $aboutHeader->title }}</h2>
+                <p>{!! $aboutHeader->text !!}</p>
+            </div>
+            <div class="px-3 pb-5 mb:p-5 md:order-2 order-1">
+                <img class="image border-4 rounded-xl border-[#09aac0] box-shadow-blue" src="{{ asset($aboutHeader->image_path) }}" alt="{{ $aboutHeader->title }}">
+            </div>
         </div>
-        <div class="mb-5">
+        @each('components._about_paragraph', $aboutParagraphs, 'about')
+        {{-- <div class="mb-5">
             <h2 class="text-[#09aac0] text-shadow-blue text-2xl">ROC de Friese Poort</h2>
             <h3 class="text-[#E00496] text-shadow-pink text-xl">MBO Applicatie- en Media Ontwikkeling</h3>
             <p>Ik heb deze opleiding in iets meer dan 3 jaar afgerond met <code>9</code> als eindcijfer. Op deze opleiding hebben we vooral les gehad in <code>php</code>. Maar ik kreeg <i>de Klik</i> pas toen ik in het laatste jaar als mijn project een game ging ontwikkelen in <code>C#</code>.</p>
@@ -31,6 +41,6 @@
             <h2 class="text-[#09aac0] text-shadow-blue text-2xl">Postis IT Group</h2>
             <h3 class="text-[#E00496] text-shadow-pink text-xl">Junior Developer</h3>
             <p>Na mijn stage is de development tak van b&t onderwijs afgesplitst en een zutser bedrijf geworden van b&t onderwijs. Dat is Postis It Group. Daar werk ik nu al bijna 3 jaar aan web apps.</p>
-        </div>
-        </div>
+        </div> --}}
+    </div>
 </section>

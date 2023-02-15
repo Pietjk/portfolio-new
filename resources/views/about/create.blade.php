@@ -12,7 +12,7 @@
                     @endforeach
                 </ul>
             @endif
-            <form action="{{ route('about.store') }}" method="POST" enctype= multipart/form-data>
+            <form action="{{ route('aboutText.store') }}" method="POST" enctype= multipart/form-data>
                 @csrf
                 <div class="mb-3 w-full">
                     <label class="block" for="title">Titel</label>
@@ -36,7 +36,7 @@
                             file:bg-white file:text-black
                             hover:file:cursor-pointer
                             hover:file:bg-gray-100
-                      " />
+                        " />
                     </label>
                 </div>
                 <hr class="my-3 border-[#09aac0]">

@@ -4,7 +4,7 @@
     <a href="{{ route('dashboard') }}">@include('components._header', [$text = 'Edit'])</a>
     <div class="container mx-auto text-white max-w-[1024px] px-10 min-h-screen p-5">
         <div class="mx-auto p-5 rounded-xl bg-[#170129] w-full mb-10 shadow-lg">
-            <h2 class="text-3xl text-[#E00496] text-shadow-pink pb-5 text-center">Maak een nieuw project</h2>
+            <h2 class="text-3xl text-[#E00496] text-shadow-pink pb-5 text-center">Maak een nieuw about</h2>
             @if($errors->any())
                 <ul class="text-red-600">
                     @foreach ($errors->all() as $error)
@@ -12,24 +12,20 @@
                     @endforeach
                 </ul>
             @endif
-            <form action="{{ route('project.update', [$project->getKey()]) }}" method="POST" enctype= multipart/form-data>
+            <form action="{{ route('aboutText.update', [$aboutText->getKey()]) }}" method="POST" enctype= multipart/form-data>
                 @method('PATCH')
                 @csrf
                 <div class="mb-3 w-full">
                     <label class="block" for="title">Titel</label>
-                    <input class="text-black block w-full rounded-lg border-2 border-[#09aac0] focus:border-[#E00496]" type="text" name="title" id="title" placeholder="Titel" value="{{ old('title') ?? $project->title }}">
+                    <input class="text-black block w-full rounded-lg border-2 border-[#09aac0] focus:border-[#E00496]" type="text" name="title" id="title" placeholder="Titel" value="{{ old('title') ?? $aboutText->title }}">
+                </div>
+                <div class="mb-3 w-full">
+                    <label class="block" for="subtitle">Subtitel</label>
+                    <input class="text-black block w-full rounded-lg border-2 border-[#09aac0] focus:border-[#E00496]" type="text" name="subtitle" id="subtitle" placeholder="subtitel" value="{{ old('subtitle') ?? $aboutText->subtitle }}">
                 </div>
                 <div class="mb-3 w-full">
                     <label class="block" for="title">Text</label>
-                    <textarea class="text-black block w-full rounded-lg border-2 border-[#09aac0] focus:border-[#E00496] p-2" name="text" id="text" rows="3" placeholder="Text">{{ old('text') ?? $project->text }}</textarea>
-                </div>
-                <div class="mb-3 w-full">
-                    <label class="block" for="site">Site</label>
-                    <input class="text-black block w-full rounded-lg border-2 border-[#09aac0] focus:border-[#E00496]" type="text" name="site" id="site" placeholder="Site" value="{{ old('site') ?? $project->site }}">
-                </div>
-                <div class="mb-3 w-full">
-                    <label class="block" for="github">Github</label>
-                    <input class="text-black block w-full rounded-lg border-2 border-[#09aac0] focus:border-[#E00496]" type="text" name="github" id="github" placeholder="Github" value="{{ old('github') ?? $project->github }}">
+                    <textarea class="text-black block w-full rounded-lg border-2 border-[#09aac0] focus:border-[#E00496] p-2" name="text" id="text" rows="3" placeholder="Text">{{ old('text') ?? $aboutText->text }}</textarea>
                 </div>
                 <div class="mb-3 w-full">
                     <label for="image_path" class="block">Afbeelding</label>
