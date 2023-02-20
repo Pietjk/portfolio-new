@@ -17,15 +17,17 @@
                 <img class="image border-4 rounded-xl border-[#09aac0] box-shadow-blue" src="{{ asset('images/piet.jpg') }}" alt="Piet Korfmaker">
             </div>
         </div> --}}
-        <div class="grid md:grid-cols-3 gap-x-5 items-center mb-5">
-            <div class="col-span-2 md:order-1 order-2">
-                <h2 class="text-[#09aac0] text-shadow-blue text-2xl">{{ $aboutHeader->title }}</h2>
-                <p>{!! $aboutHeader->text !!}</p>
+        @if (isset($aboutHeader))
+            <div class="grid md:grid-cols-3 gap-x-5 items-center mb-5">
+                <div class="col-span-2 md:order-1 order-2">
+                    <h2 class="text-[#09aac0] text-shadow-blue text-2xl">{{ $aboutHeader->title }}</h2>
+                    <p>{!! $aboutHeader->text !!}</p>
+                </div>
+                <div class="px-3 pb-5 mb:p-5 md:order-2 order-1">
+                    <img class="image border-4 rounded-xl border-[#09aac0] box-shadow-blue" src="{{ asset($aboutHeader->image_path) }}" alt="{{ $aboutHeader->title }}">
+                </div>
             </div>
-            <div class="px-3 pb-5 mb:p-5 md:order-2 order-1">
-                <img class="image border-4 rounded-xl border-[#09aac0] box-shadow-blue" src="{{ asset($aboutHeader->image_path) }}" alt="{{ $aboutHeader->title }}">
-            </div>
-        </div>
+        @endif
         @each('components._about_paragraph', $aboutParagraphs, 'about')
         {{-- <div class="mb-5">
             <h2 class="text-[#09aac0] text-shadow-blue text-2xl">ROC de Friese Poort</h2>
