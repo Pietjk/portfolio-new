@@ -28,9 +28,9 @@ return new class extends Migration
         $dt = now();
         DB::table('users')->insert([
             [
-                'name' => 'Akkelien',
-                'email' => '4@4',
-                'password' => Hash::make('12345678'),
+                'name' => config('app.username'),
+                'email' => config('app.email'),
+                'password' => Hash::make(config('app.password')),
                 'created_at' => $dt,
                 'updated_at' => $dt,
             ],

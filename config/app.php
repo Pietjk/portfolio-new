@@ -58,6 +58,10 @@ return [
 
     'asset_url' => env('ASSET_URL'),
 
+    'username' => env('SITE_USERNAME'),
+    'email' => env('SITE_EMAIL'),
+    'password' => env('SITE_PASSWORD'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
@@ -69,7 +73,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'CET',
 
     /*
     |--------------------------------------------------------------------------
@@ -82,7 +86,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'nl',
 
     /*
     |--------------------------------------------------------------------------
