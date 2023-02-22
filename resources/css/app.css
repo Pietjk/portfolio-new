@@ -107,13 +107,20 @@ html,* {
     height: 100%;
 }
 
-@media screen and (max-height: 766px) {
+@media screen and (max-height: 500px) {
     .sun {
         max-height: 300px;
         max-width: 300px;
     }
     .grid-container {
         transform: perspective(400px) rotateX(70deg);
+    }
+}
+
+@media screen and (max-height: 400px) {
+    .sun {
+        max-height: 200px;
+        max-width: 200px;
     }
 }
 
