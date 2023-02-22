@@ -4,7 +4,7 @@
     </a>
 
     <div class="grid-container grid grid-cols-12">
-        @for ($i = 0; $i < 116; $i++)
+        @for ($i = 0; $i < 117; $i++)
             <div class="grid-line"></div>
         @endfor
     </div>

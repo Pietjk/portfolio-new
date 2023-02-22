@@ -109,11 +109,11 @@ html,* {
 
 @media screen and (max-height: 766px) {
     .sun {
-        height: 70%;
-        width: auto;
+        max-height: 300px;
+        max-width: 300px;
     }
     .grid-container {
-        display: none !important;
+        transform: perspective(400px) rotateX(70deg);
     }
 }
 
