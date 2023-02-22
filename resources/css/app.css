@@ -96,11 +96,9 @@ html,* {
     background-color: rgb(23, 1, 41);
     width: 250%;
     height: 100vh;
-    left: -75%;
-    position: absolute;
+    margin-left: -75%;
     bottom: 0;
     transform: perspective(400px) rotateX(40deg) scale(3) translateZ(0);
-    margin: 0 auto;
     transform-origin: bottom;
 }
 
