@@ -1,5 +1,5 @@
 <section class="min-h-screen bg-gradient-to-b from-slate-900 via-violet-900 to-indigo-600 w-full overflow-hidden" id="landing">
-    <a href="#" class="sun overflow-visible" id="sun">
+    <a href="#" class="sun overflow-visible" id="sun" aria-label="scroll down">
         <img class="z-10 absolute -bottom-5" src="{{ asset('/images/piet_logo_grain.png') }}" alt="">
     </a>
 

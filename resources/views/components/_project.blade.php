@@ -4,11 +4,11 @@
             {{$project->title}}
         </span>
         <span >
-            <a href="{{ $project->site }}" class="text-xl hover:text-[#ff00aa]" target="_blank">
+            <a href="{{ $project->site }}" class="text-xl hover:text-[#ff00aa]" target="_blank"  aria-label="{{ $project->site }}">
                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
             </a>
             @if (isset($project->github))
-                <a href="{{ $project->github }}" class="text-xl hover:text-[#ff00aa]" target="_blank">
+                <a href="{{ $project->github }}" class="text-xl hover:text-[#ff00aa]" target="_blank" aria-label="github">
                     <i class="fa-brands fa-github"></i>
                 </a>
             @endif
