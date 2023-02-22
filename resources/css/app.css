@@ -108,8 +108,12 @@ html,* {
 }
 
 @media screen and (max-height: 766px) {
+    .sun {
+        height: 70%;
+        width: auto;
+    }
     .grid-container {
-        display: none;
+        display: none !important;
     }
 }
 
