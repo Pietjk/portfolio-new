@@ -1,7 +1,8 @@
 <section class="min-h-screen bg-gradient-to-b from-slate-900 via-violet-900 to-indigo-600 w-full overflow-hidden" id="landing">
-    <a href="#" class="sun overflow-visible" id="sun" aria-label="scroll down">
-        <img class="z-10 absolute -bottom-5" src="{{ asset('/images/piet_logo_grain.png') }}" alt="Piet jouke Korfmaker" id="sun-img">
-    </a>
+    <a href="#" class="sun overflow-visible" id="sun" aria-label="scroll down"></a>
+    <div class="logo" id="sun-img">
+        <img class="z-10 absolute -bottom-5" src="{{ asset('/images/piet_logo_grain.png') }}" alt="Piet jouke Korfmaker">
+    </div>
 
     <div class="grid-container grid grid-cols-12">
         @for ($i = 0; $i < 117; $i++)
@@ -11,7 +12,7 @@
 </section>
 @push('scripts')
     <script>
-        document.getElementById('sun').addEventListener('click', sunExplodes);
+        document.getElementById('sun-img').addEventListener('click', sunExplodes);
 
         function sunExplodes() {
             let sun = document.getElementById('sun')

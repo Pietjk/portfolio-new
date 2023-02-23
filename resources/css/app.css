@@ -4,12 +4,16 @@
 
 @font-face {
     font-family: 'Nico-Moji';
-    src:url('/public/fonts/Nico-Moji.ttf.woff') format('woff'),
-        url('/public/fonts/Nico-Moji.ttf.svg#Nico-Moji') format('svg'),
-        url('/public/fonts/Nico-Moji.ttf.eot'),
-        url('/public/fonts/Nico-Moji.ttf.eot?#iefix') format('embedded-opentype');
+    src:url('/resources/fonts/Nico-Moji.ttf.woff') format('woff'),
+        url('/resources/fonts/Nico-Moji.ttf.svg#Nico-Moji') format('svg'),
+        url('/resources/fonts/Nico-Moji.ttf.eot'),
+        url('/resources/fonts/Nico-Moji.ttf.eot?#iefix') format('embedded-opentype');
         font-weight: normal;
         font-style: normal;
+}
+
+html {
+    overflow-x: hidden;
 }
 
 .text-shadow-pink {
@@ -34,12 +38,18 @@ code {
     text-shadow: rgb(224, 4, 150) 1px 0 10px;
 }
 
-html,* {
-    font-family: 'Nico-Moji';
-    overflow-x: hidden;
+.sun {
+    border-radius: 100%;
+
+    background: linear-gradient(180deg, rgba(255,223,27,1) 0%, rgba(252,181,41,1) 35%, rgba(253,144,107,1) 44%, rgba(0,0,0,0) 46%, rgba(253,128,136,1) 48%, rgba(255,79,223,1) 60%, rgba(244,71,211,1) 64%, rgba(0,0,0,0) 65%, rgba(236,65,202,1) 67%, rgba(218,52,180,1) 74%, rgba(207,47,181,1) 76%, rgba(0,0,0,0) 78%, rgba(197,42,183,1) 79%, rgba(142,17,189,1) 88%, rgba(140,20,191,1) 89%, rgba(0,0,0,0) 90%, rgba(135,26,196,1) 92%, rgba(112,52,218,1) 100%);
+
+    box-shadow: 0px 0px 500px 20px rgba(218,52,180,1);
+
+    transition: all .2s ease-in-out;
+    animation: breathe 3s linear infinite;
 }
 
-.sun {
+.sun, .logo {
     width: 40%;
     max-height: 840px;
     max-width: 840px;
@@ -51,20 +61,22 @@ html,* {
     top: 50px;
     left:0;
     right:0;
-    margin-left: auto;
-    margin-right: auto;
+}
 
-    border-radius: 100%;
-
-    background: linear-gradient(180deg, rgba(255,223,27,1) 0%, rgba(252,181,41,1) 35%, rgba(253,144,107,1) 44%, rgba(0,0,0,0) 46%, rgba(253,128,136,1) 48%, rgba(255,79,223,1) 60%, rgba(244,71,211,1) 64%, rgba(0,0,0,0) 65%, rgba(236,65,202,1) 67%, rgba(218,52,180,1) 74%, rgba(207,47,181,1) 76%, rgba(0,0,0,0) 78%, rgba(197,42,183,1) 79%, rgba(142,17,189,1) 88%, rgba(140,20,191,1) 89%, rgba(0,0,0,0) 90%, rgba(135,26,196,1) 92%, rgba(112,52,218,1) 100%);
-
-    box-shadow: 0px 0px 500px 20px rgba(218,52,180,1);
-
-    transition: all .2s ease-in-out;
+@keyframes breathe { 
+    0% {
+        transform: scale(1);
+    } 
+    50% {
+        transform: scale(1.1);
+    } 
+    100% {
+        transform: scale(1);
+    }
 }
 
 @media screen and (max-width: 1024px) {
-    .sun {
+    .sun, .logo {
         width: 70%;
     }
 }
@@ -108,7 +120,7 @@ html,* {
 }
 
 @media screen and (max-height: 500px) {
-    .sun {
+    .sun, .logo {
         max-height: 300px;
         max-width: 300px;
     }
@@ -118,7 +130,7 @@ html,* {
 }
 
 @media screen and (max-height: 400px) {
-    .sun {
+    .sun, .logo {
         max-height: 200px;
         max-width: 200px;
     }
