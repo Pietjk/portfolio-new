@@ -46,7 +46,7 @@ code {
     box-shadow: 0px 0px 500px 20px rgba(218,52,180,1);
 
     transition: all .2s ease-in-out;
-    animation: breathe 3s linear infinite;
+    animation: breathe 4s linear infinite;
 }
 
 .sun, .logo {
@@ -63,15 +63,25 @@ code {
     right:0;
 }
 
-@keyframes breathe { 
+.logo:hover + .sun, .sun:hover {
+    transform: scale(1.1);
+}
+
+@keyframes breathe {
     0% {
-        transform: scale(1);
-    } 
-    50% {
-        transform: scale(1.1);
-    } 
+        box-shadow: 0px 0px 500px 20px rgba(218,52,180,1);
+    }
+    10% {
+        box-shadow: 0px 0px 500px 20px rgba(218,52,180,1);
+    }
+    45% {
+        box-shadow: 0px 0px 500px 70px rgba(218,52,180,1);
+    }
+    55% {
+        box-shadow: 0px 0px 500px 70px rgba(218,52,180,1);
+    }
     100% {
-        transform: scale(1);
+        box-shadow: 0px 0px 500px 20px rgba(218,52,180,1);
     }
 }
 
@@ -88,7 +98,7 @@ code {
 
 @keyframes sun-explodes {
     0% {
-        transform: scale(1.2);
+        transform: scale(1.1);
         background: rgba(255,220,83,1);
     }
     50% {
