@@ -130,7 +130,7 @@ code {
     height: 100%;
 }
 
-@media screen and (max-height: 800px) and (max-width: 1024px) {
+@media screen and (max-height: 800px) and (max-width: 1024px) and (min-width: 580px) {
     .sun, .logo {
         max-height: 400px;
         max-width: 400px;
