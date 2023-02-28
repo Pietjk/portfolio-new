@@ -89,6 +89,7 @@ code {
     .sun, .logo {
         width: 70%;
     }
+
 }
 
 .explode {
@@ -127,6 +128,16 @@ code {
     border: 4px solid rgb(9, 170, 192);
     box-shadow: 0px 0px 12px 1px rgb(0, 255, 255);
     height: 100%;
+}
+
+@media screen and (max-height: 800px) and (max-width: 1024px) {
+    .sun, .logo {
+        max-height: 400px;
+        max-width: 400px;
+    }
+    .grid-container {
+        transform: perspective(400px) rotateX(50deg);
+    }
 }
 
 @media screen and (max-height: 500px) {
