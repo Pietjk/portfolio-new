@@ -8,38 +8,36 @@
         </div>
     </div>
     <img class="pt-10 car" src="{{asset('images/car.png')}}" alt="" id="car">
-    <div class="w-100 h-5 bg-[#E00496] box-shadow-intense-pink"></div>
+    <div class="w-100 h-5 bg-[#E00496] box-shadow-intense-pink" id="road"></div>
 </section>
 @push('scripts')
     <script>
-        let scrollPos = 0;
-        let scrollingUp = false
+        window.addEventListener("scroll", movePercentage);
 
-        window.addEventListener("scroll", moveCar);
+        function movePercentage() {
+            const road = document.getElementById('road');
+            const car = document.getElementById('car');
 
-        function moveCar() {
-            scrollingUp = false;
-            if ((document.body.getBoundingClientRect()).top > scrollPos) {
-                scrollingUp = true;
+            const windowHeight = window.innerHeight;
+            const start = road.offsetTop - (windowHeight);
+            let finish = road.offsetTop;
+            const scrollPos = (document.body.getBoundingClientRect()).top;
+            const remainingSiteHeight = document.body.scrollHeight - finish;
+
+            // Add an offset to finish if site is to small
+            if (remainingSiteHeight < windowHeight) {
+                finish -= (windowHeight - remainingSiteHeight);
             }
-            scrollPos = (document.body.getBoundingClientRect()).top;
-            let car = document.getElementById('car');
-            const position = car.getBoundingClientRect();
 
-            if(position.top >= 0 && position.bottom <= window.innerHeight) {
-                let style = window.getComputedStyle(car);
-                let matrix = new WebKitCSSMatrix(style.transform);
-                let position = matrix.e;
-                let destination = window.innerWidth
-                let defaultPosition = -894
-                let distance = destination - defaultPosition;
-                let steps = distance / 78;
+            const onePercent = (finish - start) / 100;
+            const offset = 894
 
-                if (scrollingUp && position >= defaultPosition) {
-                        car.style.transform = "translateX("+ (position - steps) +"px)";
-                } else if (position <= destination) {
-                        car.style.transform = "translateX("+ (position + steps) +"px)";
-                }
+            // When car is visible move it by the scroll position percentage
+            if (scrollPos * -1 >= start && scrollPos * -1 <= finish) {
+                let percentage = (scrollPos * -1 - start) / onePercent;
+                let carPos = ((window.innerWidth + offset) / 100) * percentage;
+
+                car.style.transform = "translateX("+ (carPos - offset) +"px)";
             }
         }
     </script>
