@@ -70,7 +70,7 @@ code {
 }
 
 .sun, .logo {
-    width: 40%;
+    width: 30%;
     max-height: 840px;
     max-width: 840px;
     aspect-ratio: 1 / 1;
@@ -103,6 +103,13 @@ code {
     100% {
         box-shadow: 0px 0px 500px 20px rgba(218,52,180,1);
     }
+}
+
+@media screen and (max-width: 1200px) {
+    .sun, .logo {
+        width: 50%;
+    }
+
 }
 
 @media screen and (max-width: 1024px) {
