@@ -22,6 +22,7 @@
             let img = document.getElementById('sun-img')
             console.log(img);
             sun.classList.toggle('explode');
+            sun.children[0].classList.toggle('landing-noise-2');
             sun.classList.toggle('z-20');
             img.classList.toggle('hidden');
 
@@ -30,6 +31,7 @@
             }, 1000);
             setTimeout(function () {
                 sun.classList.toggle('explode')
+                sun.children[0].classList.toggle('landing-noise-2');
                 sun.classList.toggle('z-20');
                 img.classList.toggle('hidden');
             }, 3000);
