@@ -5,10 +5,8 @@
         </a>
         <a href="#" class="sun overflow-visible" id="sun" aria-label="scroll down"><div class="landing-noise-2 h-full w-full rounded-full"></div></a>
 
-        <div class="grid-container grid grid-cols-12">
-            @for ($i = 0; $i < 117; $i++)
-                <div class="grid-line"></div>
-            @endfor
+        <div class="grid-container">
+            <div class="grid-line"></div>
         </div>
     </div>
 </section>
