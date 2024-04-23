@@ -13,6 +13,10 @@ module.exports = {
             fontFamily: {
                 sans: ['Nico-Moji', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                primary: '#09aac0',
+                secondary: '#E00496',
+            },
         },
     },
 

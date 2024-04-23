@@ -7,13 +7,50 @@
 
         <div class="grid-container grid grid-cols-12">
             @for ($i = 0; $i < 117; $i++)
-                <div class="grid-line"></div>
+                <div class="grid-line tile-animation ease-in duration-300"></div>
             @endfor
         </div>
     </div>
 </section>
 @push('scripts')
     <script>
+        setTimeout(function () {
+            tileAnimate();
+        }, 123);
+
+        setTimeout(function () {
+            tileAnimate();
+        }, 521);
+
+        setTimeout(function () {
+            tileAnimate();
+        }, 932);
+
+        setTimeout(function () {
+            tileAnimate();
+        }, 1323);
+
+        setTimeout(function () {
+            tileAnimate();
+        }, 1621);
+
+        setTimeout(function () {
+            tileAnimate();
+        }, 2032);
+
+
+        function tileAnimate () {
+            let tiles = document.getElementsByClassName('tile-animation')
+            let len = tiles.length;
+            let tile = tiles[Math.floor(Math.random() * len)]
+
+            tile.classList.add('bg-secondary');
+            setTimeout(function () {
+                tile.classList.remove('bg-secondary');
+                tileAnimate();
+            }, 3000);
+        }
+
         document.getElementById('sun-img').addEventListener('click', sunExplodes);
         document.getElementById('sun').addEventListener('click', sunExplodes);
 
