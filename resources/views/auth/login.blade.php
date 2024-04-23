@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="container mx-auto text-white max-w-[1024px] px-10 min-h-screen flex flex-row items-center">
-    <div class="mx-auto p-5 border-4 rounded-xl border-[#09aac0] box-shadow-blue bg-[#170129]">
+    <div class="mx-auto p-5 border-4 rounded-xl border-primary box-shadow-blue bg-[#170129]">
         <img class="md:max-w-md pb-5" src="{{asset('images/piet_logo_grain.png')}}" alt="">
         <form method="POST" action="{{ route('login') }}">
             @csrf
@@ -30,14 +30,14 @@
             <!-- Remember Me -->
             <div class="block mt-4">
                 <label for="remember_me" class="inline-flex items-center">
-                    <input id="remember_me" type="checkbox" class="rounded text-[#E00496] shadow-sm" name="remember">
+                    <input id="remember_me" type="checkbox" class="rounded text-secondary shadow-sm" name="remember">
                     <span class="ml-2 text-sm text-white">Onthoud mij</span>
                 </label>
             </div>
 
             <div class="flex items-center justify-end mt-4">
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-white hover:text-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#E00496]" href="{{ route('password.request') }}">
+                    <a class="underline text-sm text-white hover:text-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary" href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif

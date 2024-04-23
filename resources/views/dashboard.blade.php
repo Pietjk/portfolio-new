@@ -4,7 +4,7 @@
     <div class="container mx-auto text-white max-w-[1024px] px-10 min-h-screen p-5">
         <a href="{{ route('home') }}">@include('components._header', [$text = 'Dashboard'])</a>
         <div class="mx-auto p-5 rounded-xl bg-[#170129] w-full mb-10 shadow-lg">
-            <h2 class="text-3xl text-[#E00496] text-shadow-pink pb-5 text-center">Project Groot <a class="float-right" href="{{ route('project.create', ['is_small' => 0]) }}"><i class="fa-solid fa-plus"></i></a></h2>
+            <h2 class="text-3xl text-secondary text-shadow-pink pb-5 text-center">Project Groot <a class="float-right" href="{{ route('project.create', ['is_small' => 0]) }}"><i class="fa-solid fa-plus"></i></a></h2>
             <div class="overflow-x-auto">
                 <table class="table-auto w-full">
                     <thead class="border-b">
@@ -51,7 +51,7 @@
         </div>
 
         <div class="mx-auto p-5 rounded-xl bg-[#170129] w-full  mb-10">
-            <h2 class="text-3xl text-[#E00496] text-shadow-pink pb-5 text-center">Project Klein <a class="float-right" href="{{ route('project.create', ['is_small' => 1]) }}"><i class="fa-solid fa-plus"></i></a></h2>
+            <h2 class="text-3xl text-secondary text-shadow-pink pb-5 text-center">Project Klein <a class="float-right" href="{{ route('project.create', ['is_small' => 1]) }}"><i class="fa-solid fa-plus"></i></a></h2>
             <div class="overflow-x-auto">
                 <table class="table-auto  w-full">
                     <thead class="border-b">
@@ -98,7 +98,7 @@
         </div>
 
         <div class="mx-auto p-5 rounded-xl bg-[#170129] w-full mb-10 shadow-lg">
-            <h2 class="text-3xl text-[#E00496] text-shadow-pink pb-5 text-center">Over Mij <a class="float-right" href="{{ route('aboutText.create') }}"><i class="fa-solid fa-plus"></i></a></h2>
+            <h2 class="text-3xl text-secondary text-shadow-pink pb-5 text-center">Over Mij <a class="float-right" href="{{ route('aboutText.create') }}"><i class="fa-solid fa-plus"></i></a></h2>
             <div class="overflow-x-auto">
                 <table class="table-auto w-full">
                     <thead class="border-b">

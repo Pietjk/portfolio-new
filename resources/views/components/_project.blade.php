@@ -1,7 +1,7 @@
 <div class="grid md:grid-cols-2 grid-cols-1 gap-y-5 gap-x-10 px-10 py-5 projects">
-    <img class="image border-4 rounded-xl border-[#09aac0] box-shadow-blue @if(!$even) md:order-2 @endif" src="{{$project->image_path}}" alt="{{ $project->title }}">
+    <img class="image border-4 rounded-xl border-primary box-shadow-blue @if(!$even) md:order-2 @endif" src="{{$project->image_path}}" alt="{{ $project->title }}">
     <div class="text pb-5 @if(!$even) md:order-1 @endif">
-        <h2 class="text-xl text-[#E00496]">
+        <h2 class="text-xl text-secondary">
             <span class="text-shadow-pink">
                 {{$project->title}}
             </span>

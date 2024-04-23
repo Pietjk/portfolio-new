@@ -8,7 +8,7 @@
         </div>
     </div>
     <img class="pt-10 car" src="{{asset('images/car.png')}}" alt="" id="car">
-    <div class="w-100 h-5 bg-[#E00496] box-shadow-intense-pink" id="road"></div>
+    <div class="w-100 h-5 bg-secondary box-shadow-intense-pink" id="road"></div>
 </section>
 @push('scripts')
     <script>
@@ -24,7 +24,7 @@
             const scrollPos = (document.body.getBoundingClientRect()).top;
             const remainingSiteHeight = document.body.scrollHeight - finish;
 
-            // Add an offset to finish if site is to small
+            // Add an offset to finish if site is too small
             if (remainingSiteHeight < windowHeight) {
                 finish -= (windowHeight - remainingSiteHeight);
             }
