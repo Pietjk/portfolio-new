@@ -14,30 +14,11 @@
 </section>
 @push('scripts')
     <script>
-        setTimeout(function () {
-            tileAnimate();
-        }, 123);
-
-        setTimeout(function () {
-            tileAnimate();
-        }, 521);
-
-        setTimeout(function () {
-            tileAnimate();
-        }, 932);
-
-        setTimeout(function () {
-            tileAnimate();
-        }, 1323);
-
-        setTimeout(function () {
-            tileAnimate();
-        }, 1621);
-
-        setTimeout(function () {
-            tileAnimate();
-        }, 2032);
-
+        for (let i = 1; i < 7; i++) {
+            setTimeout(function () {
+                tileAnimate();
+            }, i*500);
+        }
 
         function tileAnimate () {
             let tiles = document.getElementsByClassName('tile-animation')
