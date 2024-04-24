@@ -1,5 +1,5 @@
 <section class="min-h-screen bg-gradient-to-b from-slate-900 via-violet-900 to-indigo-600 w-full overflow-hidden landing" id="landing">
-    <div id="nav-mesh" class="w-full h-[380px] absolute bottom-0 right-0 z-[9] landing-noise"></div>
+    <div id="nav-mesh" class="w-full h-[380px] absolute bottom-0 right-0 z-[11] landing-noise"></div>
     <div class="landing-noise">
         <a href="#" class="logo" id="sun-img">
             <img class="z-20 absolute -bottom-5" src="{{ asset('/images/piet_logo_grain.png') }}" alt="Piet jouke Korfmaker">

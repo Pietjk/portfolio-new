@@ -40,7 +40,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-    <div class="w-1/3 absolute z-10 hidden lg:block transition-[top,left,scale] duration-[500ms] ease-linear" id="lydia"><img src="{{ asset('/images/car.png') }}" alt=""></div>
+    <div class="w-1/3 absolute z-10 hidden lg:block " id="follower"><img src="{{ asset('/images/car.png') }}" alt=""></div>
         <div class="min-h-screen bg-gray-100">
             <main class="min-h-screen">
                 @yield('content')
@@ -48,45 +48,38 @@
         </div>
         @stack('scripts')
         <script>
-            let timesPerSecond = 1; // how many times to fire the event per second
+            let timesPerSecond = 60; // how many times to fire the event per second
             let waitUntil = 0;
             let oldX = 0;
-            let lydia = document.getElementById('lydia');
+            let follower = document.getElementById('follower');
             let navMesh = document.getElementById('nav-mesh');
             let landing = document.getElementById('landing');
             let mr = 0;
-            lydia.style.top = '60%'
-            lydia.style.left = '5%'
-            lydia.style.scale = '0.700'
+            follower.style.top = '60%'
+            follower.style.left = '5%'
+            follower.style.scale = '0.700'
 
             navMesh.addEventListener("mousemove", function (event) {
-                if (Date.now() >= waitUntil) {
-
-                    let posX = event.pageX
-                    let posY = event.pageY
-
-                    if (event.pageX < oldX) {
-                        lydia.style.transform = 'rotateY(180deg)';
-                    } else if (event.pageX > oldX) {
-                        lydia.style.transform = 'rotateY(0deg)';
-                    }
-
-                    if (event.pageX > landing.offsetWidth / 2) {
-                        mr = lydia.offsetWidth;
-                    } else if (event.pageX < landing.offsetWidth / 2) {
-                        mr = 0;
-                    }
-                    console.log(event.pageX)
-                    console.log(landing.offsetWidth)
-                    // fire the event
-                    lydia.style.top = `${posY - lydia.offsetHeight / 1.3}px`;
-                    lydia.style.left = `${posX - mr}px`;
-                    lydia.style.scale = `0.${posY}`
-                    // stop any further events for a moment
-                    oldX = event.pageX
-                    waitUntil = Date.now() + 300 / timesPerSecond;
-                }
+                follow(event)
             });
+            function follow (event) {
+                let posX = event.pageX
+                let posY = event.pageY
+
+                if (event.pageX < oldX) {
+                    follower.style.transform = 'rotateY(180deg)';
+                } else if (event.pageX > oldX) {
+                    follower.style.transform = 'rotateY(0deg)';
+                }
+
+                // fire the event
+                follower.style.top = `${posY - follower.offsetHeight / 1.3}px`;
+                follower.style.left = `${posX - mr}px`;
+                follower.style.scale = `0.${posY}`
+                // stop any further events for a moment
+                oldX = event.pageX
+                waitUntil = Date.now() + 1000 / timesPerSecond;
+            }
         </script>
     </body>
 </html>
