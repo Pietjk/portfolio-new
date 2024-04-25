@@ -40,7 +40,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-    <div class="w-1/3 absolute z-10 hidden lg:block " id="follower"><img src="{{ asset('/images/car.png') }}" alt=""></div>
+        <div class="w-1/3 absolute z-10 hidden lg:block" style="top: 60%; left: 5%; scale: 0.700" id="follower"><img src="{{ asset('/images/car.png') }}" alt=""></div>
         <div class="min-h-screen bg-gray-100">
             <main class="min-h-screen">
                 @yield('content')
@@ -48,16 +48,9 @@
         </div>
         @stack('scripts')
         <script>
-            let timesPerSecond = 60; // how many times to fire the event per second
-            let waitUntil = 0;
             let oldX = 0;
             let follower = document.getElementById('follower');
             let navMesh = document.getElementById('nav-mesh');
-            let landing = document.getElementById('landing');
-            let mr = 0;
-            follower.style.top = '60%'
-            follower.style.left = '5%'
-            follower.style.scale = '0.700'
 
             navMesh.addEventListener("mousemove", function (event) {
                 follow(event)
@@ -66,19 +59,23 @@
                 let posX = event.pageX
                 let posY = event.pageY
 
+                let edge = navMesh.offsetWidth - follower.offsetWidth
+
                 if (event.pageX < oldX) {
                     follower.style.transform = 'rotateY(180deg)';
                 } else if (event.pageX > oldX) {
                     follower.style.transform = 'rotateY(0deg)';
                 }
 
-                // fire the event
+                if (posX >= edge) {
+                    posX = edge;
+                }
+
                 follower.style.top = `${posY - follower.offsetHeight / 1.3}px`;
-                follower.style.left = `${posX - mr}px`;
+                follower.style.left = `${posX}px`;
                 follower.style.scale = `0.${posY}`
-                // stop any further events for a moment
+
                 oldX = event.pageX
-                waitUntil = Date.now() + 1000 / timesPerSecond;
             }
         </script>
     </body>
