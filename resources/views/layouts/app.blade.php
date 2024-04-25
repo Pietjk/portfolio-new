@@ -40,7 +40,12 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="w-1/3 absolute z-10 hidden lg:block" style="top: 60%; left: 5%; scale: 0.700" id="follower"><img src="{{ asset('/images/car.png') }}" alt=""></div>
+        <div class="w-1/4 absolute z-10 hidden lg:block" style="top: 60%; left: 5%; scale: 0.700" id="follower">
+            <img src="{{ asset('/images/bike.png') }}" alt="">
+        </div>
+
+        <div class="absolute z-10  hidden trail-shadow" id="trail"></div>
+
         <div class="min-h-screen bg-gray-100">
             <main class="min-h-screen">
                 @yield('content')
@@ -51,31 +56,63 @@
             let oldX = 0;
             let follower = document.getElementById('follower');
             let navMesh = document.getElementById('nav-mesh');
+            let trail = document.getElementById('trail');
 
             navMesh.addEventListener("mousemove", function (event) {
-                follow(event)
+                if (document.body.offsetWidth >= 1024) {
+                    follow(event)
+                }
             });
+
             function follow (event) {
                 let posX = event.pageX
                 let posY = event.pageY
+                let edge = navMesh.offsetWidth - follower.offsetWidth;
+                let trailX = posX;
 
-                let edge = navMesh.offsetWidth - follower.offsetWidth
 
                 if (event.pageX < oldX) {
                     follower.style.transform = 'rotateY(180deg)';
+                    trailX = posX + follower.offsetWidth;
                 } else if (event.pageX > oldX) {
                     follower.style.transform = 'rotateY(0deg)';
                 }
 
                 if (posX >= edge) {
                     posX = edge;
+                    trailX = edge + follower.offsetWidth;
                 }
 
-                follower.style.top = `${posY - follower.offsetHeight / 1.3}px`;
-                follower.style.left = `${posX}px`;
-                follower.style.scale = `0.${posY}`
+                let carPosY = posY - follower.offsetHeight / 1.3;
+
+                follower.style.top = carPosY+'px';
+                follower.style.left = posX+'px';
+                follower.style.scale = '0.'+posY;
+
+                let clone = cloneFactory(posY - follower.offsetHeight/2, trailX);
+
+                setTimeout(function () {
+                    clone.remove();
+                }, 1000);
 
                 oldX = event.pageX
+            }
+
+            function cloneFactory (posY, posX) {
+                let clone = trail.cloneNode()
+
+                clone.removeAttribute('id');
+                clone.classList.add('lg:block');
+
+                let x = posX;
+                let y = posY;
+                clone.style.left = x +'px';
+                clone.style.top = y +'px';
+                clone.style.scale = '0.'+posY;
+
+                document.body.appendChild(clone)
+
+                return clone;
             }
         </script>
     </body>

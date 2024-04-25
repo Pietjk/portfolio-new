@@ -33,6 +33,10 @@ html {
     box-shadow: 2px 2px 50px 5px rgb(224, 4, 150);
 }
 
+.trail-shadow {
+    box-shadow: 0 0 120px 50px rgb(0, 255, 255);
+}
+
 code {
     color: rgb(224, 4, 150);
     text-shadow: rgb(224, 4, 150) 1px 0 10px;
