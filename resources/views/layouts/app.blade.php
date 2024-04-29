@@ -40,7 +40,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="w-1/4 absolute z-10 hidden lg:block" style="top: 60%; left: 5%; scale: 0.700" id="follower">
+        <div class="w-1/4 absolute z-10 hidden xl:block" style="top: 60%; left: 5%; scale: 0.700" id="follower">
             <img src="{{ asset('/images/bike.png') }}" alt="">
         </div>
 
@@ -59,7 +59,7 @@
             let trail = document.getElementById('trail');
 
             navMesh.addEventListener("mousemove", function (event) {
-                if (document.body.offsetWidth >= 1024) {
+                if (document.body.offsetWidth >= 1280) {
                     follow(event)
                 }
             });
@@ -87,7 +87,7 @@
 
                 follower.style.top = carPosY+'px';
                 follower.style.left = posX+'px';
-                follower.style.scale = '0.'+posY;
+                follower.style.scale = posY/1500;
 
                 let clone = cloneFactory(posY - follower.offsetHeight/2, trailX);
 
@@ -102,13 +102,13 @@
                 let clone = trail.cloneNode()
 
                 clone.removeAttribute('id');
-                clone.classList.add('lg:block');
+                clone.classList.add('xl:block');
 
                 let x = posX;
                 let y = posY;
                 clone.style.left = x +'px';
                 clone.style.top = y +'px';
-                clone.style.scale = '0.'+posY;
+                clone.style.scale = posY/1000;
 
                 document.body.appendChild(clone)
 
