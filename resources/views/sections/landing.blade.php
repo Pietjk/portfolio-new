@@ -1,4 +1,4 @@
-<section class="min-h-screen  w-full overflow-hidden landing" id="landing">
+<section class="min-h-screen w-full overflow-hidden landing" id="landing">
     <div class="w-1/4 absolute z-10 hidden xl:block" style="top: 60%; left: 5%; scale: 0.700" id="follower">
         <img src="{{ asset('/images/bike.png') }}" alt="">
     </div>

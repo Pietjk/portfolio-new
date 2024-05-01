@@ -132,7 +132,6 @@ code {
     background-position: center;
     width: 100%;
     background-size: cover;
-    filter: drop-shadow(0 0 12px rgb(0, 255, 255));
 }
 
 .grid-container {
