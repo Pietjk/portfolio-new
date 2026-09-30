@@ -17,9 +17,6 @@ class ProjectDetailController extends Controller
      */
     public function show(Project $project)
     {
-        // $projectDetailHeader = $project->projectDetails()->whereNotNull('image_path')->first();
-        // $projectDetailParagraphs = $project->projectDetails()->whereNull('image_path')->get();
-
         $projectDetails = $project->projectDetails()->get();
 
         return view('project_details.show', compact('project', 'projectDetails'));

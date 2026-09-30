@@ -4,21 +4,53 @@
 <section id="project-details">
     @include('components._header', [$text = $project->title])
     <div class="container mx-auto text-white max-w-[1024px] px-10">
-        <a href="{{ route('home') }}#projects" class="inline-block mb-5 hover:text-[#ff00aa]">
-            <i class="fa-solid fa-arrow-left"></i> Terug naar projecten
-        </a>
-        @if (isset($projectDetailHeader))
-            <div class="grid md:grid-cols-3 gap-x-5 items-center mb-5">
-                <div class="md:col-span-2 md:order-1 order-2">
-                    <h2 class="text-primary text-shadow-blue text-2xl">{{ $projectDetailHeader->title }}</h2>
-                    <p>{!! $projectDetailHeader->text !!}</p>
-                </div>
-                <div class="px-3 pb-5 md:p-5 md:order-2 order-1">
-                    <img class="image border-4 rounded-xl border-primary box-shadow-blue" src="{{ asset($projectDetailHeader->image_path) }}" alt="{{ $projectDetailHeader->title }}">
+        <div class="grid grid-cols-3 text-center gap-y-2 py-3">
+            <div class="overflow-visible">
+                <h2 class="text-secondary text-shadow-pink text-xl pb-2">Terug</h2>
+                <h2 class="text-secondary text-xl  transition-transform hover:scale-150 w-fit mx-auto">
+                    <a href="{{ route('home') }}#projects" aria-label="Terug naar Home">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+                </h2>
+            </div>
+            <div class="overflow-visible">
+                <h2 class="text-secondary text-shadow-pink text-xl pb-2">Github</h2>
+                <h2 class="text-secondary text-xl  transition-transform hover:scale-150 w-fit mx-auto">
+                    <a href="{{ $project->github_link }}" target="_blank" aria-label="Github">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                </h2>
+            </div>
+            <div class="overflow-visible">
+                <h2 class="text-secondary text-shadow-pink text-xl pb-2">Link</h2>
+                <h2 class="text-secondary text-xl  transition-transform hover:scale-150 w-fit mx-auto">
+                    <a href="{{ $project->link }}" target="_blank" aria-label="Project Link">
+                        <i class="fa-solid fa-link"></i>
+                    </a>
+                </h2>
+            </div>
+        </div>
+    </div>
+    <div class="container mx-auto text-white max-w-[1024px] px-10">
+        <div class="mx-auto w-full py-5">
+            <img class="image border-4 rounded-xl border-primary box-shadow-blue w-full" src="{{ asset($project->image_path) }}" alt="{{ $project->title }}">
+        </div>
+        @foreach ($projectDetails as $detail)
+             <div class="w-full px-10 py-5">
+                 <div class="md:col-span-2 md:order-1 order-2">
+                     <h2 class="text-primary text-shadow-blue text-2xl">{{ $detail->title }}</h2>
+                     @if (isset($detail->subtitle))
+                     <h3 class="text-secondary text-shadow-pink text-xl">{{ $detail->subtitle }}</h3>
+                     @endif
+                     <p>{!! $detail->text !!}</p>
+                     @if (isset($detail->image_path))
+                     <div class="w-full py-5">
+                         <img class="image border-4 rounded-xl border-primary box-shadow-blue" src="{{ asset($detail->image_path) }}" alt="{{ $detail->title }}">
+                     </div>
+                     @endif
                 </div>
             </div>
-        @endif
-        @each('components._project_detail_paragraph', $projectDetails, 'projectDetail')
+        @endforeach
     </div>
 </section>
 @include('sections.footer')
