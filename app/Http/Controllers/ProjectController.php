@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -44,6 +45,7 @@ class ProjectController extends Controller
         );
 
         $validated['image_path'] = 'storage/'.$path;
+        $validated['slug'] = $this->uniqueSlug($validated['title']);
 
         Project::create($validated);
 
@@ -94,9 +96,26 @@ class ProjectController extends Controller
             $validated['image_path'] = 'storage/'.$path;
         }
 
+        if ($validated['title'] !== $project->title) {
+            $validated['slug'] = $this->uniqueSlug($validated['title'], $project->id);
+        }
+
         $project->update($validated);
 
         return redirect('dashboard');
+    }
+
+    private function uniqueSlug(string $title, ?int $ignoreId = null): string
+    {
+        $base = Str::slug($title);
+        $slug = $base;
+        $i = 1;
+
+        while (Project::where('slug', $slug)->when($ignoreId, fn ($query) => $query->where('id', '!=', $ignoreId))->exists()) {
+            $slug = $base.'-'.$i++;
+        }
+
+        return $slug;
     }
 
     /**

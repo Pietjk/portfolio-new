@@ -14,6 +14,11 @@
                         <i class="fa-brands fa-github"></i>
                     </a>
                 @endif
+                @if ($project->project_details_count > 0)
+                    <a href="{{ route('project_details.show', $project) }}" class="text-xl hover:text-[#ff00aa]" aria-label="Meer over {{ $project->title }}">
+                        <i class="fa-solid fa-circle-arrow-right"></i>
+                    </a>
+                @endif
             </span>
         </h2>
         <p>{!! $project->text !!}</p>

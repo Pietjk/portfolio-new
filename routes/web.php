@@ -4,6 +4,7 @@ use App\Http\Controllers\AboutTextController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProjectDetailController;
 use App\Models\AboutText;
 use App\Models\Project;
 use Illuminate\Support\Facades\Route;
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $allProjects = Project::all();
+    $allProjects = Project::withCount('projectDetails')->get();
     $projects = $allProjects->where('is_small', '=', false);
     $projects_sm = $allProjects->where('is_small', '=', true);
 
@@ -31,6 +32,8 @@ Route::get('/', function () {
     return view('home', compact('projects', 'projects_sm', 'aboutHeader', 'aboutParagraphs'));
 })->name('home');
 
+Route::get('/projects/{project:slug}', [ProjectDetailController::class, 'show'])->name('project_details.show');
+
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -40,6 +43,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('project', ProjectController::class)->except('index', 'show');
     Route::resource('aboutText', AboutTextController::class)->except('index', 'show');
+    Route::resource('projectDetail', ProjectDetailController::class)->except('index', 'show');
 });
 
 require __DIR__.'/auth.php';

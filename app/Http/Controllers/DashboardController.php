@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AboutText;
 use App\Models\Project;
+use App\Models\ProjectDetail;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -19,7 +20,8 @@ class DashboardController extends Controller
         $projects = $allProjects->where('is_small', '=', false);
         $projects_sm = $allProjects->where('is_small', '=', true);
         $aboutTexts = AboutText::all();
+        $projectDetails = ProjectDetail::with('project')->get();
 
-        return view('dashboard', compact('projects', 'projects_sm', 'aboutTexts'));
+        return view('dashboard', compact('projects', 'projects_sm', 'aboutTexts', 'projectDetails'));
     }
 }
