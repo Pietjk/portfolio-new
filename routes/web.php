@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $allProjects = Project::withCount('projectDetails')->get();
+    $allProjects = Project::withCount('projectDetails')->with('skills')->get();
     $projects = $allProjects->where('is_small', '=', false);
     $projects_sm = $allProjects->where('is_small', '=', true);
 

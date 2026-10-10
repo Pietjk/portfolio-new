@@ -45,6 +45,8 @@
                     </label>
                 </div>
                 <hr class="my-3 border-primary">
+                @include('components._skill_picker', ['skills' => $skills])
+                <hr class="my-3 border-primary">
                 <div class="mb-3 w-full">
                     <x-primary-button>Opslaan</x-primary-button>
                 </div>

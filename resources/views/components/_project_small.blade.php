@@ -21,4 +21,5 @@
         </span>
     </h2>
     <p>{!! $project->text !!}</p>
+    @include('components._skill_pills', ['skills' => $project->skills])
 </div>

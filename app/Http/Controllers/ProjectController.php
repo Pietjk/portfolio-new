@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\Skill;
 use App\Traits\ImageManagement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -20,7 +21,9 @@ class ProjectController extends Controller
     {
         $is_small = $request->is_small;
 
-        return view('projects.create', compact('is_small'));
+        $skills = Skill::orderBy('name')->get();
+
+        return view('projects.create', compact('is_small', 'skills'));
     }
 
     /**
@@ -37,14 +40,17 @@ class ProjectController extends Controller
             'github' => ['nullable', 'url'],
             'image_path' => ['required', 'image', 'max:3000'],
             'is_small' => ['required', 'boolean'],
+            'skills' => ['nullable', 'array'],
+            'skills.*' => ['integer', 'exists:skills,id'],
         ]);
 
-        unset($validated['image_path']);
+        $skillIds = $validated['skills'] ?? [];
+        unset($validated['image_path'], $validated['skills']);
 
         $validated['image_path'] = $this->storeImage($request);
         $validated['slug'] = $this->uniqueSlug($validated['title']);
 
-        Project::create($validated);
+        Project::create($validated)->skills()->sync($skillIds);
 
         return redirect('dashboard');
     }
@@ -56,7 +62,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('projects.edit', compact('project'));
+        $skills = Skill::orderBy('name')->get();
+
+        return view('projects.edit', compact('project', 'skills'));
     }
 
     /**
@@ -73,9 +81,12 @@ class ProjectController extends Controller
             'github' => ['nullable', 'url'],
             'image_path' => ['nullable', 'image', 'max:3000'],
             'is_small' => ['nullable', 'boolean'],
+            'skills' => ['nullable', 'array'],
+            'skills.*' => ['integer', 'exists:skills,id'],
         ]);
 
-        unset($validated['image_path']);
+        $skillIds = $validated['skills'] ?? [];
+        unset($validated['image_path'], $validated['skills']);
 
         if ($path = $this->storeImage($request)) {
             $this->deleteImage($project->image_path);
@@ -87,6 +98,7 @@ class ProjectController extends Controller
         }
 
         $project->update($validated);
+        $project->skills()->sync($skillIds);
 
         return redirect('dashboard');
     }
