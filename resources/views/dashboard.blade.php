@@ -247,5 +247,75 @@
                 </table>
             </div>
         </div>
+
+        <div class="mx-auto p-5 rounded-xl bg-[#170129] w-full mb-10 shadow-lg">
+            <h2 class="text-3xl text-secondary text-shadow-pink pb-5 text-center">Werkgevers <a class="float-right" href="{{ route('employer.create') }}"><i class="fa-solid fa-plus"></i></a></h2>
+            <div class="overflow-x-auto">
+                <table class="table-auto w-full">
+                    <thead class="border-b">
+                        <tr>
+                            <th class="px-3">Naam</th>
+                            <th class="px-3"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($employers as $employer)
+                            <tr class="border-b">
+                                <td class="px-3">{{ $employer->name }}</td>
+                                <td class="px-3">
+                                    <a class="inline-block" href="{{ route('employer.edit', [$employer->getKey()]) }}">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <form action="{{ route('employer.destroy', [$employer->getKey()]) }}" method="POST" onsubmit="return confirm('Werkgever en bijbehorende ervaringen verwijderen?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="inline-block">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="mx-auto p-5 rounded-xl bg-[#170129] w-full mb-10 shadow-lg">
+            <h2 class="text-3xl text-secondary text-shadow-pink pb-5 text-center">Ervaringen <a class="float-right" href="{{ route('experience.create') }}"><i class="fa-solid fa-plus"></i></a></h2>
+            <div class="overflow-x-auto">
+                <table class="table-auto w-full">
+                    <thead class="border-b">
+                        <tr>
+                            <th class="px-3">Werkgever</th>
+                            <th class="px-3">Functie</th>
+                            <th class="px-3">Periode</th>
+                            <th class="px-3"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($experiences as $experience)
+                            <tr class="border-b">
+                                <td class="px-3">{{ $experience->employer->name }}</td>
+                                <td class="px-3">{{ $experience->function }}</td>
+                                <td class="px-3">{{ $experience->start_date->format('m-Y') }} - {{ $experience->end_date?->format('m-Y') ?? 'Heden' }}</td>
+                                <td class="px-3">
+                                    <a class="inline-block" href="{{ route('experience.edit', [$experience->getKey()]) }}">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <form action="{{ route('experience.destroy', [$experience->getKey()]) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="inline-block">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 @endsection

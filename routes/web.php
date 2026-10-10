@@ -3,12 +3,15 @@
 use App\Http\Controllers\AboutTextController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EmployerController;
+use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectDetailController;
 use App\Http\Controllers\SkillController;
 use App\Models\AboutText;
 use App\Models\Category;
+use App\Models\Employer;
 use App\Models\Project;
 use Illuminate\Support\Facades\Route;
 
@@ -34,7 +37,13 @@ Route::get('/', function () {
 
     $categories = Category::with('skills')->get();
 
-    return view('home', compact('projects', 'projects_sm', 'aboutHeader', 'aboutParagraphs', 'categories'));
+    $employers = Employer::has('experiences')
+        ->with(['experiences' => fn ($query) => $query->orderByDesc('start_date'), 'experiences.skills'])
+        ->withMax('experiences', 'start_date')
+        ->orderByDesc('experiences_max_start_date')
+        ->get();
+
+    return view('home', compact('projects', 'projects_sm', 'aboutHeader', 'aboutParagraphs', 'categories', 'employers'));
 })->name('home');
 
 Route::get('/projects/{project:slug}', [ProjectDetailController::class, 'show'])->name('project_details.show');
@@ -56,6 +65,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('projectDetail', ProjectDetailController::class)->except('index', 'show');
     Route::resource('category', CategoryController::class)->except('index', 'show');
     Route::resource('skill', SkillController::class)->except('index', 'show');
+    Route::resource('employer', EmployerController::class)->except('index', 'show');
+    Route::resource('experience', ExperienceController::class)->except('index', 'show');
 });
 
 require __DIR__.'/auth.php';

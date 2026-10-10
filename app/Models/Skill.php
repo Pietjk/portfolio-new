@@ -23,6 +23,11 @@ class Skill extends Model
         return $this->belongsToMany(Project::class)->withTimestamps();
     }
 
+    public function experiences(): BelongsToMany
+    {
+        return $this->belongsToMany(Experience::class)->withTimestamps();
+    }
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);

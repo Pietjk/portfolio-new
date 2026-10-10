@@ -3,6 +3,7 @@
 @section('content')
     @include('sections.landing')
     @include('sections.about')
+    @include('sections.experience')
     @include('sections.skills')
     @include('sections.car')
     @include('sections.projects')
