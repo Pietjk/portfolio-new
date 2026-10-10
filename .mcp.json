@@ -1,0 +1,28 @@
+{
+	"mcpServers": {
+		"herd": {
+			"type": "local",
+			"command": "php",
+			"args": [
+				"C:/Users/pkorf/.config/herd/bin/herd-mcp.phar"
+			],
+			"tools": [
+				"*"
+			],
+			"env": {
+				"SITE_PATH": "G:\\Dev\\Laravel\\portfolio-new"
+			}
+		},
+		"laravel-boost": {
+			"type": "local",
+			"command": "php",
+			"args": [
+				"artisan",
+				"boost:mcp"
+			],
+			"tools": [
+				"*"
+			]
+		}
+	}
+}

@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\AboutTextController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectDetailController;
+use App\Http\Controllers\SkillController;
 use App\Models\AboutText;
+use App\Models\Category;
 use App\Models\Project;
 use Illuminate\Support\Facades\Route;
 
@@ -29,7 +32,9 @@ Route::get('/', function () {
     $aboutHeader = $about->whereNotNull('image_path')->first();
     $aboutParagraphs = $about->whereNull('image_path');
 
-    return view('home', compact('projects', 'projects_sm', 'aboutHeader', 'aboutParagraphs'));
+    $categories = Category::with('skills')->get();
+
+    return view('home', compact('projects', 'projects_sm', 'aboutHeader', 'aboutParagraphs', 'categories'));
 })->name('home');
 
 Route::get('/projects/{project:slug}', [ProjectDetailController::class, 'show'])->name('project_details.show');
@@ -44,6 +49,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('project', ProjectController::class)->except('index', 'show');
     Route::resource('aboutText', AboutTextController::class)->except('index', 'show');
     Route::resource('projectDetail', ProjectDetailController::class)->except('index', 'show');
+    Route::resource('category', CategoryController::class)->except('index', 'show');
+    Route::resource('skill', SkillController::class)->except('index', 'show');
 });
 
 require __DIR__.'/auth.php';

@@ -175,5 +175,77 @@
                 </table>
             </div>
         </div>
+
+        <div class="mx-auto p-5 rounded-xl bg-[#170129] w-full mb-10 shadow-lg">
+            <h2 class="text-3xl text-secondary text-shadow-pink pb-5 text-center">Categorieën <a class="float-right" href="{{ route('category.create') }}"><i class="fa-solid fa-plus"></i></a></h2>
+            <div class="overflow-x-auto">
+                <table class="table-auto w-full">
+                    <thead class="border-b">
+                        <tr>
+                            <th class="px-3">Naam</th>
+                            <th class="px-3">Icoon</th>
+                            <th class="px-3"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($categories as $category)
+                            <tr class="border-b">
+                                <td class="px-3">{{ $category->name }}</td>
+                                <td class="px-3">{{ $category->icon }}</td>
+                                <td class="px-3">
+                                    <a class="inline-block" href="{{ route('category.edit', [$category->getKey()]) }}">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <form action="{{ route('category.destroy', [$category->getKey()]) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="inline-block">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="mx-auto p-5 rounded-xl bg-[#170129] w-full mb-10 shadow-lg">
+            <h2 class="text-3xl text-secondary text-shadow-pink pb-5 text-center">Vaardigheden <a class="float-right" href="{{ route('skill.create') }}"><i class="fa-solid fa-plus"></i></a></h2>
+            <div class="overflow-x-auto">
+                <table class="table-auto w-full">
+                    <thead class="border-b">
+                        <tr>
+                            <th class="px-3">Naam</th>
+                            <th class="px-3">Categorie</th>
+                            <th class="px-3">Icoon</th>
+                            <th class="px-3"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($skills as $skill)
+                            <tr class="border-b">
+                                <td class="px-3">{{ $skill->name }}</td>
+                                <td class="px-3">{{ $skill->category->name }}</td>
+                                <td class="px-3">{{ $skill->icon }}</td>
+                                <td class="px-3">
+                                    <a class="inline-block" href="{{ route('skill.edit', [$skill->getKey()]) }}">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <form action="{{ route('skill.destroy', [$skill->getKey()]) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="inline-block">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 @endsection

@@ -6,5 +6,6 @@
     @include('sections.car')
     @include('sections.projects')
     @include('sections.small_projects')
+    @include('sections.skills')
     @include('sections.footer')
 @endsection

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+[x-cloak] {
+    display: none !important;
+}
+
 @font-face {
     font-family: 'Nico-Moji';
     src:url('/resources/fonts/Nico-Moji.ttf.woff') format('woff'),
