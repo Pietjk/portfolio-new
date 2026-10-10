@@ -1,5 +1,5 @@
 <section id="about">
-    @include('components._header', [$text = 'Over Mij'])
+    @include('components._header', [$text = 'Wie is Piet?'])
     <div class="container mx-auto text-white max-w-[1024px] px-10">
         @if (isset($aboutHeader))
             <div class="grid md:grid-cols-3 gap-x-5 items-center mb-5">
