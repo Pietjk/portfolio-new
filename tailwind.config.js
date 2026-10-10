@@ -14,7 +14,7 @@ module.exports = {
                 sans: ['Nico-Moji', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                primary: '#09aac0',
+                primary: '#20c7dd',
                 secondary: '#E00496',
             },
         },

@@ -18,3 +18,4 @@ yarn-error.log
 /.idea
 /.vscode
 hash_resources.txt
+.github/copilot-instructions.md
