@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employer;
 use App\Models\Project;
 use App\Models\Skill;
 use App\Traits\ImageManagement;
@@ -22,8 +23,9 @@ class ProjectController extends Controller
         $is_small = $request->is_small;
 
         $skills = Skill::orderBy('name')->get();
+        $employers = Employer::orderBy('name')->get();
 
-        return view('projects.create', compact('is_small', 'skills'));
+        return view('projects.create', compact('is_small', 'skills', 'employers'));
     }
 
     /**
@@ -40,6 +42,8 @@ class ProjectController extends Controller
             'github' => ['nullable', 'url'],
             'image_path' => ['required', 'image', 'max:3000'],
             'is_small' => ['required', 'boolean'],
+            'employer_id' => ['nullable', 'integer', 'exists:employers,id'],
+            'year' => ['required', 'integer', 'between:2000,'.((int) date('Y') + 1)],
             'skills' => ['nullable', 'array'],
             'skills.*' => ['integer', 'exists:skills,id'],
         ]);
@@ -63,8 +67,9 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $skills = Skill::orderBy('name')->get();
+        $employers = Employer::orderBy('name')->get();
 
-        return view('projects.edit', compact('project', 'skills'));
+        return view('projects.edit', compact('project', 'skills', 'employers'));
     }
 
     /**
@@ -81,6 +86,8 @@ class ProjectController extends Controller
             'github' => ['nullable', 'url'],
             'image_path' => ['nullable', 'image', 'max:3000'],
             'is_small' => ['nullable', 'boolean'],
+            'employer_id' => ['nullable', 'integer', 'exists:employers,id'],
+            'year' => ['required', 'integer', 'between:2000,'.((int) date('Y') + 1)],
             'skills' => ['nullable', 'array'],
             'skills.*' => ['integer', 'exists:skills,id'],
         ]);

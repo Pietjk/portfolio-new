@@ -21,7 +21,7 @@
                 @endif
             </span>
         </h2>
-        <p>{!! $project->text !!}</p>
+        <p class="text-sm opacity-75">{{ $project->year }}{{ $project->year ? ' · ' : '' }}{{ $project->employer?->name ?? 'Persoonlijk' }}</p>        <p>{!! $project->text !!}</p>
         @include('components._skill_pills', ['skills' => $project->skills])
     </div>
 </div>

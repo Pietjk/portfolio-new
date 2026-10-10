@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Category;
+use App\Models\Employer;
 use App\Models\Project;
 use App\Models\Skill;
 use App\Models\User;
@@ -42,6 +43,7 @@ class ProjectSkillTest extends TestCase
                 'title' => 'New project',
                 'text' => 'Some text',
                 'is_small' => 0,
+                'year' => 2024,
                 'image_path' => UploadedFile::fake()->image('a.jpg'),
                 'skills' => [$a->id, $b->id],
             ])
@@ -63,16 +65,47 @@ class ProjectSkillTest extends TestCase
             ->assertSee('value="'.$a->id.'" checked', false);
 
         $this->actingAs($user)
-            ->patch(route('project.update', $project), ['title' => 'Proj', 'text' => 'text', 'skills' => [$b->id]])
+            ->patch(route('project.update', $project), ['title' => 'Proj', 'text' => 'text', 'year' => 2024, 'skills' => [$b->id]])
             ->assertRedirect('dashboard');
 
         $this->assertSame([$b->id], $project->skills()->pluck('skills.id')->all());
 
         $this->actingAs($user)
-            ->patch(route('project.update', $project), ['title' => 'Proj', 'text' => 'text'])
+            ->patch(route('project.update', $project), ['title' => 'Proj', 'text' => 'text', 'year' => 2024])
             ->assertRedirect('dashboard');
 
         $this->assertCount(0, $project->skills()->get());
+    }
+
+    public function test_projects_are_ordered_by_year_and_employer_is_optional(): void
+    {
+        $employer = Employer::create(['name' => 'Acme']);
+        $old = Project::create(['title' => 'Old', 'slug' => 'old', 'text' => 't', 'image_path' => 'x.jpg', 'is_small' => false, 'year' => 2020]);
+        $new = Project::create(['title' => 'New', 'slug' => 'new', 'text' => 't', 'image_path' => 'x.jpg', 'is_small' => false, 'year' => 2024, 'employer_id' => $employer->id]);
+
+        $this->assertSame([$new->id, $old->id], Project::recentFirst()->pluck('id')->all());
+        $this->assertSame('Acme', $new->employer->name);
+        $this->assertNull($old->employer);
+
+        $employer->delete();
+        $this->assertNull($new->fresh()->employer_id);
+    }
+
+    public function test_home_shows_persoonlijk_when_project_has_no_employer(): void
+    {
+        Project::create(['title' => 'Solo', 'slug' => 'solo', 'text' => 't', 'image_path' => 'x.jpg', 'is_small' => false, 'year' => 2023]);
+
+        $this->get(route('home'))->assertOk()->assertSee('2023 · Persoonlijk', false);
+    }
+
+    public function test_year_is_required_and_employer_must_exist(): void
+    {
+        $this->actingAs(User::factory()->create())
+            ->post(route('project.store'), [
+                'title' => 'New project', 'text' => 'Some text', 'is_small' => 0,
+                'image_path' => UploadedFile::fake()->image('a.jpg'), 'employer_id' => 999,
+            ])
+            ->assertSessionHasErrors(['year', 'employer_id']);
     }
 
     public function test_invalid_skill_is_rejected(): void

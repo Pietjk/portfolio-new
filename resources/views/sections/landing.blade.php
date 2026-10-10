@@ -45,7 +45,7 @@
             img.classList.toggle('hidden');
 
             setTimeout(function () {
-                window.location.href = '#projects'
+                window.location.href = '#about'
             }, 1000);
             setTimeout(function () {
                 sun.classList.toggle('explode')

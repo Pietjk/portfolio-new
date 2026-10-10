@@ -19,7 +19,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $allProjects = Project::all();
+        $allProjects = Project::recentFirst()->get();
         $projects = $allProjects->where('is_small', '=', false);
         $projects_sm = $allProjects->where('is_small', '=', true);
         $aboutTexts = AboutText::all();

@@ -32,6 +32,19 @@
                     <input class="text-black block w-full rounded-lg border-2 border-primary focus:border-secondary" type="text" name="github" id="github" placeholder="Github" value="{{ old('github') }}">
                 </div>
                 <div class="mb-3 w-full">
+                    <label class="block" for="year">Jaar</label>
+                    <input class="text-black block w-full rounded-lg border-2 border-primary focus:border-secondary" type="number" name="year" id="year" placeholder="Jaar" value="{{ old('year', date('Y')) }}">
+                </div>
+                <div class="mb-3 w-full">
+                    <label class="block" for="employer_id">Werkgever</label>
+                    <select class="text-black block w-full rounded-lg border-2 border-primary focus:border-secondary" name="employer_id" id="employer_id">
+                        <option value="">Geen</option>
+                        @foreach ($employers as $employer)
+                            <option value="{{ $employer->id }}" @selected(old('employer_id') == $employer->id)>{{ $employer->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-3 w-full">
                     <label for="image_path" class="block">Afbeelding</label>
                     <label>
                         <input type="file" id="image_path" name="image_path" class="text-sm text-grey-500
