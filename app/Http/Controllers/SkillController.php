@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Skill;
+use App\Traits\ImageManagement;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class SkillController extends Controller
 {
+    use ImageManagement;
+
     public function create(): View
     {
         $categories = Category::all();
@@ -29,8 +31,8 @@ class SkillController extends Controller
 
         unset($validated['image_path']);
 
-        if ($request->hasFile('image_path')) {
-            $validated['image_path'] = 'storage/'.$request->file('image_path')->store('images', 'public');
+        if ($path = $this->storeImage($request)) {
+            $validated['image_path'] = $path;
         }
 
         Skill::create($validated);
@@ -56,14 +58,19 @@ class SkillController extends Controller
 
         unset($validated['image_path']);
 
-        if ($request->hasFile('image_path')) {
+        if ($path = $this->storeImage($request)) {
             $this->deleteImage($skill->image_path);
-            $validated['image_path'] = 'storage/'.$request->file('image_path')->store('images', 'public');
+            $validated['image_path'] = $path;
         }
 
         $skill->update($validated);
 
         return redirect()->route('dashboard');
+    }
+
+    public function destroyImage(Skill $skill): RedirectResponse
+    {
+        return $this->removeImage($skill);
     }
 
     public function destroy(Skill $skill): RedirectResponse
@@ -72,12 +79,5 @@ class SkillController extends Controller
         $skill->delete();
 
         return back();
-    }
-
-    private function deleteImage(?string $path): void
-    {
-        if ($path !== null) {
-            Storage::disk('public')->delete(str_replace('storage/', '', $path));
-        }
     }
 }

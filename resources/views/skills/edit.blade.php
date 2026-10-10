@@ -35,7 +35,7 @@
                     <label for="image_path" class="block">Afbeelding</label>
                     @if ($skill->image_path)
                         <img class="h-16 mb-2" src="{{ asset($skill->image_path) }}" alt="{{ $skill->name }}">
-                    @endif
+                                                <button type="submit" form="delete-image-form" class="mb-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm rounded-md" onclick="return confirm('Afbeelding verwijderen?')">Afbeelding verwijderen</button>                    @endif
                     <input type="file" id="image_path" name="image_path" class="text-sm text-grey-500 file:mr-5 file:py-2 file:px-6 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-white file:text-black hover:file:cursor-pointer hover:file:bg-gray-100" />
                 </div>
                 <hr class="my-3 border-primary">
@@ -43,6 +43,12 @@
                     <x-primary-button>Opslaan</x-primary-button>
                 </div>
             </form>
+            @if ($skill->image_path)
+                <form id="delete-image-form" action="{{ route('skill.image.destroy', [$skill->getKey()]) }}" method="POST">
+                    @method('DELETE')
+                    @csrf
+                </form>
+            @endif
         </div>
     </div>
 @endsection

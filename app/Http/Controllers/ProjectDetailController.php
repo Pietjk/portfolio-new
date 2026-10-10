@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\ProjectDetail;
+use App\Traits\ImageManagement;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class ProjectDetailController extends Controller
 {
+    use ImageManagement;
+
     /**
      * Display the project details page for a specific project.
      *
-     * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
     public function show(Project $project)
@@ -38,7 +40,6 @@ class ProjectDetailController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -48,18 +49,13 @@ class ProjectDetailController extends Controller
             'title' => ['required', 'string', 'min:3'],
             'subtitle' => ['nullable', 'string', 'min:3'],
             'text' => ['required', 'string', 'min:3'],
-            'image_path' => ['nullable', 'image', 'max:3000']
+            'image_path' => ['nullable', 'image', 'max:3000'],
         ]);
 
         unset($validated['image_path']);
 
-        if ($request->file('image_path') !== null) {
-            $path = $request->file('image_path')->store(
-                'images',
-                'public'
-            );
-
-            $validated['image_path'] = 'storage/'.$path;
+        if ($path = $this->storeImage($request)) {
+            $validated['image_path'] = $path;
         }
 
         ProjectDetail::create($validated);
@@ -70,7 +66,6 @@ class ProjectDetailController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ProjectDetail  $projectDetail
      * @return \Illuminate\Http\Response
      */
     public function edit(ProjectDetail $projectDetail)
@@ -83,8 +78,6 @@ class ProjectDetailController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProjectDetail  $projectDetail
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, ProjectDetail $projectDetail)
@@ -94,21 +87,14 @@ class ProjectDetailController extends Controller
             'title' => ['required', 'string', 'min:3'],
             'subtitle' => ['nullable', 'string', 'min:3'],
             'text' => ['required', 'string', 'min:3'],
-            'image_path' => ['nullable', 'image', 'max:3000']
+            'image_path' => ['nullable', 'image', 'max:3000'],
         ]);
 
         unset($validated['image_path']);
 
-        if ($request->file('image_path') !== null) {
-            $image_path = str_replace('storage/', '', $projectDetail->image_path);
-            Storage::disk('public')->delete($image_path);
-
-            $path = $request->file('image_path')->store(
-                'images',
-                'public'
-            );
-
-            $validated['image_path'] = 'storage/'.$path;
+        if ($path = $this->storeImage($request)) {
+            $this->deleteImage($projectDetail->image_path);
+            $validated['image_path'] = $path;
         }
 
         $projectDetail->update($validated);
@@ -117,17 +103,21 @@ class ProjectDetailController extends Controller
     }
 
     /**
+     * Remove the uploaded image of the specified resource.
+     */
+    public function destroyImage(ProjectDetail $projectDetail): RedirectResponse
+    {
+        return $this->removeImage($projectDetail);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ProjectDetail  $projectDetail
      * @return \Illuminate\Http\Response
      */
     public function destroy(ProjectDetail $projectDetail)
     {
-        if ($projectDetail->image_path) {
-            $image = str_replace('storage/', '', $projectDetail->image_path);
-            Storage::disk('public')->delete($image);
-        }
+        $this->deleteImage($projectDetail->image_path);
 
         $projectDetail->delete();
 

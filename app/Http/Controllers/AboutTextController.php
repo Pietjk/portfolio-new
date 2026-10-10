@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\AboutText;
+use App\Traits\ImageManagement;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
-class
-AboutTextController extends Controller
+class AboutTextController extends Controller
 {
+    use ImageManagement;
+
     /**
      * Show the form for creating a new resource.
      *
@@ -22,7 +24,6 @@ AboutTextController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -31,18 +32,13 @@ AboutTextController extends Controller
             'title' => ['required', 'string', 'min:3'],
             'subtitle' => ['nullable', 'string', 'min:3'],
             'text' => ['required', 'string', 'min:3'],
-            'image_path' => ['nullable', 'image', 'max:3000']
+            'image_path' => ['nullable', 'image', 'max:3000'],
         ]);
 
         unset($validated['image_path']);
 
-        if ($request->file('image_path') !== null) {
-            $path = $request->file('image_path')->store(
-                'images',
-                'public'
-            );
-
-            $validated['image_path'] = 'storage/'.$path;
+        if ($path = $this->storeImage($request)) {
+            $validated['image_path'] = $path;
         }
 
         AboutText::create($validated);
@@ -53,7 +49,6 @@ AboutTextController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\AboutText  $aboutText
      * @return \Illuminate\Http\Response
      */
     public function edit(AboutText $aboutText)
@@ -64,8 +59,6 @@ AboutTextController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\AboutText  $aboutText
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, AboutText $aboutText)
@@ -74,21 +67,14 @@ AboutTextController extends Controller
             'title' => ['required', 'string', 'min:3'],
             'subtitle' => ['nullable', 'string', 'min:3'],
             'text' => ['required', 'string', 'min:3'],
-            'image_path' => ['nullable', 'image', 'max:3000']
+            'image_path' => ['nullable', 'image', 'max:3000'],
         ]);
 
         unset($validated['image_path']);
 
-        if ($request->file('image_path') !== null) {
-            $image_path = str_replace('storage/', '', $aboutText->image_path);
-            Storage::disk('public')->delete($image_path);
-
-            $path = $request->file('image_path')->store(
-                'images',
-                'public'
-            );
-
-            $validated['image_path'] = 'storage/'.$path;
+        if ($path = $this->storeImage($request)) {
+            $this->deleteImage($aboutText->image_path);
+            $validated['image_path'] = $path;
         }
 
         $aboutText->update($validated);
@@ -97,16 +83,23 @@ AboutTextController extends Controller
     }
 
     /**
+     * Remove the uploaded image of the specified resource.
+     */
+    public function destroyImage(AboutText $aboutText): RedirectResponse
+    {
+        return $this->removeImage($aboutText);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\AboutText  $aboutText
      * @return \Illuminate\Http\Response
      */
     public function destroy(AboutText $aboutText)
     {
-        $image = str_replace('storage/', '', $aboutText->image_path);
-        Storage::disk('public')->delete($image);
+        $this->deleteImage($aboutText->image_path);
         $aboutText->delete();
+
         return back();
     }
 }

@@ -37,6 +37,10 @@
                 </div>
                 <div class="mb-3 w-full">
                     <label for="image_path" class="block">Afbeelding</label>
+                    @if ($projectDetail->image_path)
+                        <img class="h-32 mb-2 rounded-md" src="{{ asset($projectDetail->image_path) }}" alt="{{ $projectDetail->title }}">
+                        <button type="submit" form="delete-image-form" class="mb-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm rounded-md" onclick="return confirm('Afbeelding verwijderen?')">Afbeelding verwijderen</button>
+                    @endif
                     <label>
                         <input type="file" id="image_path" name="image_path" class="text-sm text-grey-500
                             file:mr-5 file:py-2 file:px-6
@@ -53,6 +57,12 @@
                     <x-primary-button>Opslaan</x-primary-button>
                 </div>
             </form>
+            @if ($projectDetail->image_path)
+                <form id="delete-image-form" action="{{ route('projectDetail.image.destroy', [$projectDetail->getKey()]) }}" method="POST">
+                    @method('DELETE')
+                    @csrf
+                </form>
+            @endif
         </div>
     </div>
 @endsection

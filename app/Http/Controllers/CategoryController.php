@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Traits\ImageManagement;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class CategoryController extends Controller
 {
+    use ImageManagement;
+
     public function create(): View
     {
         return view('categories.create');
@@ -25,8 +27,8 @@ class CategoryController extends Controller
 
         unset($validated['image_path']);
 
-        if ($request->hasFile('image_path')) {
-            $validated['image_path'] = 'storage/'.$request->file('image_path')->store('images', 'public');
+        if ($path = $this->storeImage($request)) {
+            $validated['image_path'] = $path;
         }
 
         Category::create($validated);
@@ -49,14 +51,19 @@ class CategoryController extends Controller
 
         unset($validated['image_path']);
 
-        if ($request->hasFile('image_path')) {
+        if ($path = $this->storeImage($request)) {
             $this->deleteImage($category->image_path);
-            $validated['image_path'] = 'storage/'.$request->file('image_path')->store('images', 'public');
+            $validated['image_path'] = $path;
         }
 
         $category->update($validated);
 
         return redirect()->route('dashboard');
+    }
+
+    public function destroyImage(Category $category): RedirectResponse
+    {
+        return $this->removeImage($category);
     }
 
     public function destroy(Category $category): RedirectResponse
@@ -66,12 +73,5 @@ class CategoryController extends Controller
         $category->delete();
 
         return back();
-    }
-
-    private function deleteImage(?string $path): void
-    {
-        if ($path !== null) {
-            Storage::disk('public')->delete(str_replace('storage/', '', $path));
-        }
     }
 }

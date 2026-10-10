@@ -46,6 +46,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::delete('aboutText/{aboutText}/image', [AboutTextController::class, 'destroyImage'])->name('aboutText.image.destroy');
+    Route::delete('projectDetail/{projectDetail}/image', [ProjectDetailController::class, 'destroyImage'])->name('projectDetail.image.destroy');
+    Route::delete('category/{category}/image', [CategoryController::class, 'destroyImage'])->name('category.image.destroy');
+    Route::delete('skill/{skill}/image', [SkillController::class, 'destroyImage'])->name('skill.image.destroy');
+
     Route::resource('project', ProjectController::class)->except('index', 'show');
     Route::resource('aboutText', AboutTextController::class)->except('index', 'show');
     Route::resource('projectDetail', ProjectDetailController::class)->except('index', 'show');
