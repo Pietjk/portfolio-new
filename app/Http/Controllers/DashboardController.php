@@ -6,6 +6,8 @@ use App\Models\AboutText;
 use App\Models\Category;
 use App\Models\Employer;
 use App\Models\Experience;
+use App\Models\Hobby;
+use App\Models\HobbyPost;
 use App\Models\Project;
 use App\Models\ProjectDetail;
 use App\Models\Skill;
@@ -30,6 +32,9 @@ class DashboardController extends Controller
         $employers = Employer::orderBy('name')->get();
         $experiences = Experience::with('employer')->orderByDesc('start_date')->get();
 
-        return view('dashboard', compact('projects', 'projects_sm', 'aboutTexts', 'projectDetails', 'categories', 'skills', 'employers', 'experiences'));
+        $hobbies = Hobby::orderBy('name')->get();
+        $hobbyPosts = HobbyPost::with('hobby')->orderBy('name')->get();
+
+        return view('dashboard', compact('projects', 'projects_sm', 'aboutTexts', 'projectDetails', 'categories', 'skills', 'employers', 'experiences', 'hobbies', 'hobbyPosts'));
     }
 }

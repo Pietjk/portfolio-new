@@ -5,6 +5,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\ExperienceController;
+use App\Http\Controllers\HobbyController;
+use App\Http\Controllers\HobbyPostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectDetailController;
@@ -12,6 +14,7 @@ use App\Http\Controllers\SkillController;
 use App\Models\AboutText;
 use App\Models\Category;
 use App\Models\Employer;
+use App\Models\Hobby;
 use App\Models\Project;
 use Illuminate\Support\Facades\Route;
 
@@ -43,7 +46,9 @@ Route::get('/', function () {
         ->orderByDesc('experiences_max_start_date')
         ->get();
 
-    return view('home', compact('projects', 'projects_sm', 'aboutHeader', 'aboutParagraphs', 'categories', 'employers'));
+    $hobbies = Hobby::with('hobbyPosts')->get();
+
+    return view('home', compact('projects', 'projects_sm', 'aboutHeader', 'aboutParagraphs', 'categories', 'employers', 'hobbies'));
 })->name('home');
 
 Route::get('/projects/{project:slug}', [ProjectDetailController::class, 'show'])->name('project_details.show');
@@ -60,6 +65,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('category/{category}/image', [CategoryController::class, 'destroyImage'])->name('category.image.destroy');
     Route::delete('skill/{skill}/image', [SkillController::class, 'destroyImage'])->name('skill.image.destroy');
 
+    Route::delete('hobby/{hobby}/image', [HobbyController::class, 'destroyImage'])->name('hobby.image.destroy');
+    Route::delete('hobbyPost/{hobbyPost}/image', [HobbyPostController::class, 'destroyImage'])->name('hobbyPost.image.destroy');
+
     Route::resource('project', ProjectController::class)->except('index', 'show');
     Route::resource('aboutText', AboutTextController::class)->except('index', 'show');
     Route::resource('projectDetail', ProjectDetailController::class)->except('index', 'show');
@@ -67,6 +75,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('skill', SkillController::class)->except('index', 'show');
     Route::resource('employer', EmployerController::class)->except('index', 'show');
     Route::resource('experience', ExperienceController::class)->except('index', 'show');
+    Route::resource('hobby', HobbyController::class)->except('index', 'show');
+    Route::resource('hobbyPost', HobbyPostController::class)->except('index', 'show');
 });
 
 require __DIR__.'/auth.php';

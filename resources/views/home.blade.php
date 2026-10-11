@@ -10,5 +10,6 @@
         @include('sections.projects')
         @include('sections.small_projects')
     </div>
+    @include('sections.hobbies')
     @include('sections.footer')
 @endsection
