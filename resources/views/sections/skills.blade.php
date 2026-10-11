@@ -20,7 +20,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
             @foreach ($categories as $category)
-                <ul class="p-5 rounded-xl  box-shadow-blue border-primary border-4 flex flex-col gap-5 px-14" x-show="active === {{ $category->id }}" x-cloak>
+                <ul class="p-5 rounded-xl bg-[#1F0137] shadow-xl flex flex-col gap-5 px-14" x-show="active === {{ $category->id }}" x-cloak>
                     @forelse ($category->skills as $skill)
                         <li class="flex items-center gap-3">
                             @if ($skill->image_path)

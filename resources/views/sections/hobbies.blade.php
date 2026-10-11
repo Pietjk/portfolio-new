@@ -2,7 +2,7 @@
     @include('components._header', [$text = "Hobby's"])
     <div class="container mx-auto text-white max-w-[1024px] px-10 pb-10" x-data="{ active: {{ $hobbies->first()?->id ?? 'null' }}, modal: null }" @keydown.escape.window="modal = null">
         <div class="rounded-3xl shadow-2xl p-10 bg-[#170129]">
-            <div class="flex flex-wrap gap-3 mb-12">
+            <div class="flex flex-wrap gap-3 mb-5">
                 @foreach ($hobbies as $hobby)
                     <button type="button"
                         class="flex items-center gap-2 px-5 py-2 rounded-full border-2 border-secondary transition-colors"
@@ -27,7 +27,7 @@
                         get maxIndex() { return Math.max(0, this.total - this.perView); },
                         init() {
                             const update = () => {
-                                this.perView = window.innerWidth >= 1024 ? 3 : (window.innerWidth >= 768 ? 2 : 1);
+                                this.perView = window.innerWidth >= 1024 ? 2 : 1;
                                 this.index = Math.min(this.index, this.maxIndex);
                             };
                             update();
@@ -46,7 +46,7 @@
                         <p class="text-center">Nog geen berichten bij deze hobby.</p>
                     @else
                         <div class="flex items-center gap-3">
-                            <button type="button" aria-label="Vorige"
+                            <button type="button" aria-label="Vorige" x-show="total > perView"
                                 class="shrink-0 flex items-center justify-center h-12 w-12 rounded-full border-2 border-secondary text-secondary transition-colors hover:bg-secondary hover:text-white disabled:opacity-30 disabled:pointer-events-none"
                                 :disabled="index === 0" @click="index = Math.max(0, index - 1)">
                                 <i class="fa-solid fa-arrow-left"></i>
@@ -54,12 +54,12 @@
                             <div class="overflow-hidden grow">
                                 <div class="flex transition-transform duration-500 ease-in-out" :style="`transform: translateX(-${index * (100 / perView)}%)`">
                                     @foreach ($hobby->hobbyPosts as $post)
-                                        <div class="px-2 shrink-0" :style="`flex-basis: ${100 / perView}%`">
-                                            <div role="button" tabindex="0"
-                                                class="h-full flex flex-col rounded-xl overflow-hidden border-4 border-primary box-shadow-blue cursor-pointer text-left"
+                                        <div class="px-2 shrink-0 flex" :style="`flex-basis: ${100 / perView}%`">
+                                            <div class="bg-[#1F0137] rounded-xl shadow-2xl" role="button" tabindex="0"
+                                                class="w-full flex flex-col rounded-xl overflow-hidden cursor-pointer text-left"
                                                 @click="modal = {{ $post->id }}" @keydown.enter="modal = {{ $post->id }}">
                                                 @if ($post->image_path)
-                                                    <img class="w-full aspect-video object-cover" src="{{ asset($post->image_path) }}" alt="{{ $post->name }}">
+                                                    <img class="w-full aspect-video object-cover rounded-t-xl" src="{{ asset($post->image_path) }}" alt="{{ $post->name }}">
                                                 @else
                                                     <div class="w-full aspect-video flex items-center justify-center bg-gradient-to-br from-[#170129] to-secondary/50 text-secondary text-4xl">
                                                         <i class="{{ $hobby->icon ?: 'fa-regular fa-image' }}"></i>
@@ -80,7 +80,7 @@
                                     @endforeach
                                 </div>
                             </div>
-                            <button type="button" aria-label="Volgende"
+                            <button type="button" aria-label="Volgende" x-show="total > perView"
                                 class="shrink-0 flex items-center justify-center h-12 w-12 rounded-full border-2 border-secondary text-secondary transition-colors hover:bg-secondary hover:text-white disabled:opacity-30 disabled:pointer-events-none"
                                 :disabled="index >= maxIndex" @click="index = Math.min(maxIndex, index + 1)">
                                 <i class="fa-solid fa-arrow-right"></i>
@@ -98,7 +98,7 @@
                 <div x-show="modal === {{ $post->id }}" x-cloak
                     class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
                     @click.self="modal = null" role="dialog" aria-modal="true" aria-label="{{ $post->name }}">
-                    <div class="relative w-full max-w-5xl max-h-full overflow-y-auto rounded-3xl bg-[#170129] border-4 border-primary box-shadow-blue">
+                    <div class="relative w-full max-w-5xl max-h-full overflow-y-auto rounded-3xl bg-[#170129]">
                         <button type="button" aria-label="Sluiten"
                             class="absolute top-3 right-3 z-10 flex items-center justify-center h-10 w-10 rounded-full bg-black/60 text-white hover:bg-secondary transition-colors"
                             @click="modal = null">
