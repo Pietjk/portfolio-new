@@ -17,10 +17,8 @@
                     </button>
                 @endforeach
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
             @foreach ($categories as $category)
-                <ul class="p-5 rounded-xl bg-[#1F0137] shadow-xl flex flex-col gap-5 px-14" x-show="active === {{ $category->id }}" x-cloak>
+                <ul class="space-y-5 max-w-1/2" x-show="active === {{ $category->id }}" x-cloak>
                     @forelse ($category->skills as $skill)
                         <li class="flex items-center gap-3">
                             @if ($skill->image_path)
@@ -36,17 +34,6 @@
                     @endforelse
                 </ul>
             @endforeach
-            </div>
-            @if ($categories->count() > 1)
-                <div class="items-end justify-end hidden md:flex">
-                <button type="button" aria-label="Volgende categorie"
-                    class="group flex items-center justify-center h-32 w-32 sm:h-40 sm:w-40 rounded-full border-4 border-secondary bg-gradient-to-br from-[#170129] to-secondary/50 text-secondary shadow-[0_0_20px_#E00496,inset_0_0_20px_rgba(224,4,150,0.5)] transition-all duration-300 hover:scale-105 hover:bg-secondary hover:text-white hover:shadow-[0_0_40px_#E00496,0_0_80px_#E00496] active:scale-95"
-                    @click="active = {{ $categories->pluck('id')->toJson() }}[({{ $categories->pluck('id')->toJson() }}.indexOf(active) + 1) % {{ $categories->count() }}]">
-                    <i class="fa-solid fa-arrow-right text-6xl sm:text-7xl text-shadow-pink transition-transform duration-300 group-hover:translate-x-2"></i>
-                </button>
-                </div>
-            @endif
-            </div>
         </div>
     </div>
 </section>
