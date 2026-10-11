@@ -1,4 +1,4 @@
-<div class="py-48">
+<div class="py-32">
     <img class="pt-10 car" src="{{asset('images/car.png')}}" alt="" id="car">
     <div class="w-100 h-5 bg-secondary box-shadow-intense-pink" id="road"></div>
 </div>

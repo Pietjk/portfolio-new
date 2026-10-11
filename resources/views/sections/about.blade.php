@@ -5,6 +5,7 @@
             <div class="grid md:grid-cols-3 gap-x-5 items-center mb-5">
                 <div class="md:col-span-2 md:order-1 order-2">
                     <h2 class="text-primary text-shadow-blue text-2xl">{{ $aboutHeader->title }}</h2>
+                    <h3 class="text-secondary text-shadow-pink text-xl">{{ $aboutHeader->subtitle }}</h3>
                     <p>{!! $aboutHeader->text !!}</p>
                 </div>
                 <div class="px-3 pb-5 md:p-5 md:order-2 order-1">
