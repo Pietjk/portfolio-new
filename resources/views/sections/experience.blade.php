@@ -8,10 +8,10 @@
                     @foreach ($employer->experiences as $experience)
                         <li class="relative pl-6 before:content-[''] before:absolute before:z-10 before:-left-2 before:top-1.5 before:h-4 before:w-4 before:rounded-full before:bg-secondary before:shadow-[0_0_10px_#E00496] after:content-[''] after:absolute after:-left-px after:top-3.5 after:-bottom-[38px] after:w-0.5 after:bg-secondary last:after:hidden">
                             <h3 class="text-xl">{{ $experience->function }}</h3>
-                            <p class="text-sm text-secondary">
+                            <p class="text-sm opacity-75">
                                 {{ $experience->start_date->locale('nl')->translatedFormat('F Y') }}
                                 -
-                                {{ $experience->end_date ? $experience->end_date->locale('nl')->translatedFormat('F Y') : 'Heden' }}
+                                {{ $experience->end_date ? $experience->end_date->locale('nl')->translatedFormat('F Y') : 'heden' }}
                             </p>
                             @if ($experience->description)
                                 <p class="pt-2">{!! $experience->description !!}</p>

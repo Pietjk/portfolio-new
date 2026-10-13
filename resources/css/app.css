@@ -38,10 +38,9 @@
 
 @font-face {
     font-family: 'Nico-Moji';
-    src:url('/resources/fonts/Nico-Moji.ttf.woff') format('woff'),
-        url('/resources/fonts/Nico-Moji.ttf.svg#Nico-Moji') format('svg'),
-        url('/resources/fonts/Nico-Moji.ttf.eot'),
-        url('/resources/fonts/Nico-Moji.ttf.eot?#iefix') format('embedded-opentype');
+    src: url('../fonts/Nico-Moji.ttf.woff') format('woff'),
+        url('../fonts/Nico-Moji.ttf.svg#Nico-Moji') format('svg'),
+        url('../fonts/Nico-Moji.ttf.eot') format('embedded-opentype');
         font-weight: normal;
         font-style: normal;
 }
