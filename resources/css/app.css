@@ -12,6 +12,11 @@
     --color-secondary: #E00496;
 }
 
+p, .hobby-description {
+    font-family: 'Alexandria', sans-serif;
+    font-size: 17px;
+}
+
 @layer base {
     *,
     ::after,
