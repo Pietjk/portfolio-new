@@ -1,8 +1,8 @@
 <section id="experience">
     @include('components._header', [$text = 'Ervaringen'])
-    <div class="container mx-auto text-white max-w-[1024px] px-10 pb-10 flex flex-col gap-10">
+    <div class="container mx-auto text-white max-w-[1024px] px-3 lg:px-10 pb-10 flex flex-col gap-10">
         @foreach ($employers as $employer)
-            <div class="p-5 rounded-xl bg-[#170129] shadow-lg">
+                <div class="p-5 rounded-xl bg-[#170129] shadow-lg">
                 <h2 class="text-2xl text-primary text-shadow-blue pb-4">{{ $employer->name }}</h2>
                 <ol class="flex flex-col gap-6 ml-2">
                     @foreach ($employer->experiences as $experience)

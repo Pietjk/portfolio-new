@@ -1,7 +1,7 @@
 <section id="hobbies">
     @include('components._header', [$text = "Hobby's"])
-    <div class="container mx-auto text-white max-w-[1024px] px-10 pb-10" x-data="{ active: {{ $hobbies->first()?->id ?? 'null' }}, modal: null }" @keydown.escape.window="modal = null">
-        <div class="rounded-3xl shadow-2xl p-10 bg-[#170129]">
+    <div class="container mx-auto text-white max-w-[1024px] px-3 lg:px-10 pb-10" x-data="{ active: {{ $hobbies->first()?->id ?? 'null' }}, modal: null }" @keydown.escape.window="modal = null">
+            <div class="rounded-3xl shadow-2xl p-5 sm:p-10 bg-[#170129]">
             <div class="flex flex-wrap gap-3 mb-5">
                 @foreach ($hobbies as $hobby)
                     <button type="button"
@@ -45,13 +45,13 @@
                     @if ($hobby->hobbyPosts->isEmpty())
                         <p class="text-center">Nog geen berichten bij deze hobby.</p>
                     @else
-                        <div class="flex items-center gap-3">
+                        <div class="flex flex-wrap justify-end lg:justify-normal lg:flex-nowrap items-center gap-3">
                             <button type="button" aria-label="Vorige" x-show="total > perView"
                                 class="shrink-0 flex items-center justify-center h-12 w-12 rounded-full border-2 border-secondary text-secondary transition-colors hover:bg-secondary hover:text-white disabled:opacity-30 disabled:pointer-events-none"
                                 :disabled="index === 0" @click="index = Math.max(0, index - 1)">
                                 <i class="fa-solid fa-arrow-left"></i>
                             </button>
-                            <div class="overflow-hidden grow">
+                            <div class="overflow-hidden w-full order-first lg:order-none lg:w-auto grow">
                                 <div class="flex transition-transform duration-500 ease-in-out" :style="`transform: translateX(-${index * (100 / perView)}%)`">
                                     @foreach ($hobby->hobbyPosts as $post)
                                         <div class="px-2 shrink-0 flex" :style="`flex-basis: ${100 / perView}%`">

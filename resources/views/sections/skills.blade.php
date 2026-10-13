@@ -1,7 +1,7 @@
 <section id="skills">
-    @include('components._header', [$text = 'Vaardigheden'])
-    <div class="container mx-auto text-white max-w-[1024px] px-10" x-data="{ active: {{ $categories->first()?->id ?? 'null' }} }">
-        <div class="rounded-3xl shadow-2xl p-10 bg-[#170129]">
+    @include('components._header', [$text = 'Skills'])
+    <div class="container mx-auto text-white max-w-[1024px] px-3 lg:px-10" x-data="{ active: {{ $categories->first()?->id ?? 'null' }} }">
+            <div class="rounded-3xl shadow-2xl p-5 sm:p-10 bg-[#170129]">
             <div class="flex flex-wrap gap-3 mb-12">
                 @foreach ($categories as $category)
                     <button type="button"
