@@ -18,7 +18,7 @@
                 @endforeach
             </div>
             @foreach ($categories as $category)
-                <ul class="space-y-5 max-w-1/2" x-show="active === {{ $category->id }}" x-cloak>
+                <ul class="space-y-5" x-show="active === {{ $category->id }}" x-cloak>
                     @forelse ($category->skills as $skill)
                         <li class="flex items-center gap-3">
                             @if ($skill->image_path)
