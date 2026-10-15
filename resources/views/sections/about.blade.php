@@ -14,5 +14,8 @@
             </div>
         @endif
         @each('components._about_paragraph', $aboutParagraphs, 'about')
+        <a href="{{ asset('Downloads/CV-Piet-Korfmaker.pdf') }}" download="CV-Piet-Korfmaker.pdf" class="inline-block bg-secondary px-4 py-2 rounded-full hover:bg-[#ff00aa] hover:shadow-[0_0_50px_5px_#e00496] transition ease-in-out duration-150">
+            <i class="fa-solid fa-download pe-2"></i>Download mijn CV
+        </a>
     </div>
 </section>
