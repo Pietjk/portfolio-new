@@ -120,7 +120,8 @@ class HobbyTest extends TestCase
         HobbyPost::factory()->for($hobby)->create(['name' => 'Met foto', 'image_path' => 'storage/images/x.jpg']);
         Hobby::factory()->create(['name' => 'Leeg']);
 
-        $this->get(route('home'))
+        $response = $this->get(route('home'));
+        $response
             ->assertOk()
             ->assertSee("Hobby's")
             ->assertSee('Fotografie')
@@ -128,5 +129,18 @@ class HobbyTest extends TestCase
             ->assertSee('storage/images/x.jpg', false)
             ->assertSee('<strong>Vet</strong> tekst', false)
             ->assertSee('Nog geen berichten bij deze hobby.');
+
+        $html = $response->getContent();
+        $carouselPosition = strpos($html, 'overflow-hidden w-full');
+        $previousButtonPosition = strpos($html, 'aria-label="Vorige"');
+        $nextButtonPosition = strpos($html, 'aria-label="Volgende"');
+
+        $this->assertNotFalse($carouselPosition);
+        $this->assertNotFalse($previousButtonPosition);
+        $this->assertNotFalse($nextButtonPosition);
+        $this->assertGreaterThan($carouselPosition, $previousButtonPosition);
+        $this->assertGreaterThan($previousButtonPosition, $nextButtonPosition);
+        $this->assertStringContainsString('mt-3 flex justify-end gap-3', $html);
+        $this->assertStringNotContainsString('lg:justify-normal lg:flex-nowrap', $html);
     }
 }

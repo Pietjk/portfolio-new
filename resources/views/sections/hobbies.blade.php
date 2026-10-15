@@ -45,13 +45,8 @@
                     @if ($hobby->hobbyPosts->isEmpty())
                         <p class="text-center">Nog geen berichten bij deze hobby.</p>
                     @else
-                        <div class="flex flex-wrap justify-end lg:justify-normal lg:flex-nowrap items-center gap-3">
-                            <button type="button" aria-label="Vorige" x-show="total > perView"
-                                class="shrink-0 flex items-center justify-center h-12 w-12 rounded-full border-2 border-secondary text-secondary transition-colors hover:bg-secondary hover:text-white disabled:opacity-30 disabled:pointer-events-none"
-                                :disabled="index === 0" @click="index = Math.max(0, index - 1)">
-                                <i class="fa-solid fa-arrow-left"></i>
-                            </button>
-                            <div class="overflow-hidden w-full order-first lg:order-none lg:w-auto grow">
+                        <div>
+                            <div class="overflow-hidden w-full">
                                 <div class="flex transition-transform duration-500 ease-in-out" :style="`transform: translateX(-${index * (100 / perView)}%)`">
                                     @foreach ($hobby->hobbyPosts as $post)
                                         <div class="px-2 shrink-0 flex" :style="`flex-basis: ${100 / perView}%`">
@@ -80,11 +75,18 @@
                                     @endforeach
                                 </div>
                             </div>
-                            <button type="button" aria-label="Volgende" x-show="total > perView"
-                                class="shrink-0 flex items-center justify-center h-12 w-12 rounded-full border-2 border-secondary text-secondary transition-colors hover:bg-secondary hover:text-white disabled:opacity-30 disabled:pointer-events-none"
-                                :disabled="index >= maxIndex" @click="index = Math.min(maxIndex, index + 1)">
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </button>
+                            <div x-show="total > perView" class="mt-3 flex justify-end gap-3">
+                                <button type="button" aria-label="Vorige"
+                                    class="shrink-0 flex items-center justify-center h-12 w-12 rounded-full border-2 border-secondary text-secondary transition-colors hover:bg-secondary hover:text-white disabled:opacity-30 disabled:pointer-events-none"
+                                    :disabled="index === 0" @click="index = Math.max(0, index - 1)">
+                                    <i class="fa-solid fa-arrow-left"></i>
+                                </button>
+                                <button type="button" aria-label="Volgende"
+                                    class="shrink-0 flex items-center justify-center h-12 w-12 rounded-full border-2 border-secondary text-secondary transition-colors hover:bg-secondary hover:text-white disabled:opacity-30 disabled:pointer-events-none"
+                                    :disabled="index >= maxIndex" @click="index = Math.min(maxIndex, index + 1)">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </div>
                         </div>
                     @endif
                 </div>
