@@ -1,4 +1,4 @@
-<div class="py-32">
+<div class="py-32 overflow-x-hidden">
     <img class="pt-10 car" src="{{asset('images/car.png')}}" alt="" id="car">
     <div class="w-full h-5 bg-secondary box-shadow-intense-pink" id="road"></div>
 </div>
